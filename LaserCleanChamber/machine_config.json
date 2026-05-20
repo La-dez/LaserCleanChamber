@@ -9,7 +9,8 @@
   },
   "Hardware": {
     "BaudRate": 115200,
-    "VideoDeviceName": "CCX2F3299"
+    "VideoDeviceName": "CCX2F3299",
+    "UseHardwareEmulator": false
   },
   "UI": {
     "IsDarkMode": true
@@ -20,6 +21,6 @@
     "Overlap": -125,
     "TraceStep": 1,
     "ApproxError": 3,
-	  "Margin": 15
+    "Margin": 0
   }
 }
