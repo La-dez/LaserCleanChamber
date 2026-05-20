@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "\u0420\u0435\u0436\u0438\u043C 1",
+    "Power": 100,
+    "ScanWidth": 5,
+    "ScanSpeed": 1500
+  },
+  {
+    "Name": "\u0420\u0435\u0436\u0438\u043C 2",
+    "Power": 150,
+    "ScanWidth": 3.2,
+    "ScanSpeed": 12000
+  }
+]
