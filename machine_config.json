@@ -1,0 +1,26 @@
+{
+  "Calibration": {
+    "StepsPerMmX": 84.13461538461539,
+    "StepsPerMmY": 77.77777777777777,
+    "StepsPerMmZ": 256.4102564102564,
+    "CenterOffsetX": 10000,
+    "CenterOffsetY": 9000,
+    "CenterOffsetZ": 10000
+  },
+  "Hardware": {
+    "BaudRate": 115200,
+    "VideoDeviceName": "CCX2F3299",
+    "UseHardwareEmulator": true
+  },
+  "UI": {
+    "IsDarkMode": true
+  },
+  "Tracing": {
+    "ModelFileName": "Mesh/Plate_v1.stl",
+    "Algorythm": "SnakeModif",
+    "Overlap": -125,
+    "TraceStep": 1,
+    "ApproxError": 3,
+    "Margin": 0
+  }
+}
