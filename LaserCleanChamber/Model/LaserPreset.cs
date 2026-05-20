@@ -12,5 +12,8 @@ namespace LaserCleanChamber.Model
         public double Power { get; set; }
         public double ScanWidth { get;set; }
         public double ScanSpeed { get;set; }
+        public int CleaningRepeats { get; set; }
+        public int CooldownBetweenPassesSeconds { get; set; }
+        public int CooldownAfterLinesSeconds { get; set; }
     }
 }

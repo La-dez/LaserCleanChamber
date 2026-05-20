@@ -141,6 +141,14 @@ namespace LaserCleanChamber.Model
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingWidth,
                 (ushort)(preset.ScanWidth * 10));
             responce = laserPortManager.SendRequestAndWaitResponse(request);
+
+            Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
+                preset.CleaningRepeats,
+                preset.CooldownBetweenPassesSeconds);
+            SendAndWaitReply(cooldownAndRepeatsRequest, CancellationToken.None, 1000);
+
+            Frame cooldownLinesRequest = EncodeSetCooldownLines(preset.CooldownAfterLinesSeconds);
+            SendAndWaitReply(cooldownLinesRequest, CancellationToken.None, 1000);
         }
 
         private void StopTask()
