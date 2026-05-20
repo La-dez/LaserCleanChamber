@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="LaserCleanChamber.View.Controls.IndicatorItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="parent">
+
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Width="40" Height="40">
+            <Ellipse Fill="#FF262626" Stroke="#FF444444" StrokeThickness="2"/>
+
+            <Ellipse x:Name="Lamp" Margin="4">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Setter Property="Fill" Value="{Binding InactiveColor, ElementName=parent}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, ElementName=parent}" Value="True">
+                                <Setter Property="Fill" Value="{Binding ActiveColor, ElementName=parent}"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="{Binding ActiveColor, ElementName=parent}" 
+                                                          BlurRadius="15" ShadowDepth="0" Opacity="0.7"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+
+            <!-- Блик -->
+            <Ellipse Margin="10,8,10,22" IsHitTestVisible="False">
+                <Ellipse.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#66FFFFFF" Offset="0"/>
+                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+
+        <!-- Текстовый блок -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="15,0,0,0">
+            <TextBlock Text="{Binding Header, ElementName=parent}"
+                       FontSize="12" FontWeight="Bold"/>
+
+            <TextBlock FontSize="14" FontWeight="SemiBold">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <!-- По умолчанию - Неактивное состояние -->
+                        <Setter Property="Text" Value="{Binding InactiveText, ElementName=parent}"/>
+                        <Setter Property="Foreground" Value="{Binding InactiveColor, ElementName=parent}"/>
+                        <Style.Triggers>
+                            <!-- Активное состояние -->
+                            <DataTrigger Binding="{Binding IsActive, ElementName=parent}" Value="True">
+                                <Setter Property="Text" Value="{Binding ActiveText, ElementName=parent}"/>
+                                <Setter Property="Foreground" Value="{Binding ActiveColor, ElementName=parent}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

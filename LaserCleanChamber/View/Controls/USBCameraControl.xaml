@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="LaserCleanChamber.View.Controls.USBCameraControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaserCleanChamber.View.Controls"
+             xmlns:vm="clr-namespace:LaserCleanChamber.ViewModel"
+             xmlns:wpfmedia="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Black">
+        <Border Padding="4">
+            <wpfmedia:VideoCaptureElement
+                FPS="30" LoadedBehavior="Play" Stretch="Uniform"
+                UnloadedBehavior="Close"
+                VideoCaptureSource="{Binding VideoSourceName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+        </Border>
+        <TextBlock Text="Устройство не подключено" 
+                   Foreground="White" FontSize="16"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding VideoSourceName}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding VideoSourceName}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>
+</UserControl>

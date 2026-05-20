@@ -1,0 +1,29 @@
+﻿<Application x:Class="LaserCleanChamber.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LaserCleanChamber"
+             xmlns:vm="clr-namespace:LaserCleanChamber.ViewModel"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml"/>
+
+                <ResourceDictionary Source="Styles/Theme.xaml"/>
+                <ResourceDictionary Source="Styles/Button.xaml"/>
+
+                <ResourceDictionary Source="XAML/Chamber_closed.xaml"/>
+                <ResourceDictionary Source="XAML/Chamber_closed_laser.xaml"/>
+                <ResourceDictionary Source="XAML/Chamber_closed_laser_object.xaml"/>
+                <ResourceDictionary Source="XAML/Chamber_opened_laser_object.xaml"/>
+                <ResourceDictionary Source="XAML/Chamber_opened_object.xaml"/>
+                <ResourceDictionary Source="XAML/Chamber_full.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <vm:MainViewModel x:Key="mainViewModel"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

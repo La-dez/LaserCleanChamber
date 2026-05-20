@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <RadialGradientBrush GradientOrigin="0.5,1.5" x:Key="Brush.Button.Background">
+        <RadialGradientBrush.RelativeTransform>
+            <TransformGroup>
+                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                ScaleX="1.5" ScaleY="1.5"/>
+                <TranslateTransform X="0.02" Y="0.3"/>
+            </TransformGroup>
+        </RadialGradientBrush.RelativeTransform>
+        <GradientStop Offset="1" Color="{DynamicResource MahApps.Colors.Accent2}"/>
+        <GradientStop Offset="0" Color="{DynamicResource MahApps.Colors.AccentBase}"/>
+    </RadialGradientBrush>
+
+    <RadialGradientBrush GradientOrigin="0.5,1.5" x:Key="Brush.Button.Background.MouseOver">
+        <RadialGradientBrush.RelativeTransform>
+            <TransformGroup>
+                <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                <TranslateTransform X="0.02" Y="0.3"/>
+            </TransformGroup>
+        </RadialGradientBrush.RelativeTransform>
+        <GradientStop Color="{DynamicResource MahApps.Colors.Accent}" Offset="1"/>
+        <GradientStop Color="{DynamicResource MahApps.Colors.AccentBase}" Offset="0.3"/>
+    </RadialGradientBrush>
+
+    <ControlTemplate TargetType="{x:Type ButtonBase}" x:Key="buttonTemplate">
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="2"
+                Background="{TemplateBinding Background}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              TextBlock.Foreground="{TemplateBinding Foreground}"
+                              Margin="{TemplateBinding Padding}">
+            </ContentPresenter>
+        </Border>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ButtonBase}" x:Key="MahApps.Styles.Button">
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Badged.Foreground}"/>
+        <Setter Property="Background" Value="{DynamicResource Brush.Button.Background}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="8 5 8 5"/>
+        <Setter Property="Template" Value="{DynamicResource buttonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Brush.Button.Background.MouseOver}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Orange"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}"
+           x:Key="RedButtonStyle">
+        <Setter Property="Background" Value="Tomato"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#E00300"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Orange"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}"
+           x:Key="GreenButtonStyle">
+        <Setter Property="Background" Value="#FF52DC52"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Green"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="Orange"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}" x:Key="GroupBoxStyle">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.5" Direction="270"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

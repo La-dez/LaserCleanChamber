@@ -1,0 +1,154 @@
+﻿<mah:MetroWindow x:Class="LaserCleanChamber.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LaserCleanChamber"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:ic="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:ctrl="clr-namespace:LaserCleanChamber.View.Controls"
+        xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:vm="clr-namespace:LaserCleanChamber.ViewModel"
+        xmlns:model="clr-namespace:LaserCleanChamber.Model"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" Closing="MetroWindow_Closing"
+                 Loaded="MetroWindow_Loaded"
+        Title="Лазернея система чистки фильер" Height="750" Width="1200" DataContext="{StaticResource mainViewModel}"
+        TitleAlignment="Center">
+    <Grid>
+        <Grid DataContext="{Binding ChamberViewModel, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Grid.Row="1" Margin="5"
+                      Header="Управление камерой чистки"
+                  Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center"
+                                    IsEnabled="{Binding IsIdle, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                            <TextBlock Text="Режим работы:" Margin="4"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox DataContext="{Binding PresetsViewModel, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                          Margin="4" BorderThickness="2" Grid.Column="1" VerticalAlignment="Center"
+                                          BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+                                          ItemsSource="{Binding Presets, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                          SelectedItem="{Binding SelectedPreset, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type model:LaserPreset}">
+                                            <ContentPresenter Content="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button Grid.Column="2" VerticalAlignment="Center" MinWidth="50" Style="{DynamicResource MahApps.Styles.Button}"
+                                        Command="{Binding OpenPresetsEditorCommand}">
+                                    <ic:PackIconMaterialDesign Kind="Settings"/>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                        <Grid Grid.Column="0">
+                            <Button Margin="4" Style="{DynamicResource MahApps.Styles.Button}"
+                                    Command="{Binding StartCleaningCommand}"
+                                    IsEnabled="{calc:Binding IsIdle, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                    Visibility="{calc:Binding !IsCleaning, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, FalseToVisibility=Collapsed}"
+                                    Width="200">
+                                <StackPanel Margin="4" Orientation="Horizontal">
+                                    <ic:PackIconMaterial Kind="Play" Width="26" Height="22" HorizontalAlignment="Center" Margin="4"
+                                                         VerticalAlignment="Center"/>
+                                    <TextBlock Text="НАЧАТЬ ОТЧИСТКУ" Margin="4" FontSize="14"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1">
+                        <!--<TextBlock Text="Выберите область отчистки:" Margin="4"/>-->
+                    </StackPanel>
+                    <ctrl:TracingEditor Grid.Row="2" Margin="0 10 0 0"
+                                        DataContext="{Binding TracingViewModel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="0" Grid.RowSpan="3" Background="#55000000" CornerRadius="6"
+                            Visibility="{calc:Binding IsCleaning, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                        <StackPanel VerticalAlignment="Center"
+                            Background="White">
+                            <StackPanel.Effect>
+                                <DropShadowEffect Direction="-90" Opacity="0.3"/>
+                            </StackPanel.Effect>
+                            <TextBlock Text="Идет процесс отчистки" Margin="5 10 5 5"/>
+                            <ProgressBar Margin="5 5 5 10" Height="24" IsIndeterminate="True"
+                                Minimum="0" Maximum="0" Value="0" />
+                            <Button Margin="4" Style="{DynamicResource MahApps.Styles.Button}"
+                                Command="{Binding StopCleaningCommand}"
+                                IsEnabled="{calc:Binding IsCleaning, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                Visibility="{calc:Binding IsCleaning, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, FalseToVisibility=Collapsed}"
+                                Width="200">
+                                <StackPanel Margin="4" Orientation="Horizontal">
+                                    <ic:PackIconMaterial Kind="Stop" Width="26" Height="22" HorizontalAlignment="Center" Margin="4"
+            VerticalAlignment="Center"/>
+                                    <TextBlock Text="ОСТАНОВИТЬ" Margin="4" FontSize="14"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </GroupBox>
+
+            <GridSplitter Width="4" Grid.Column="1" Background="#D5DFE5" Margin="4"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+            <Grid Grid.Column="2" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0" Margin="5" Header="Видео" Background="White">
+                    <ctrl:USBCameraControl/>
+                </GroupBox>
+
+                <GridSplitter Grid.Row="1" Height="4" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="4" Background="#D5DFE5"/>
+
+                <GroupBox Grid.Row="2" Margin="5" Header="Состояние камеры" Background="White">
+                    <ctrl:ChamberIndicators/>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        
+        <Border Background="#9F000000" Grid.ColumnSpan="4" Grid.RowSpan="4" ClipToBounds="True" d:Visibility="Collapsed"
+                Visibility="{calc:Binding !IsConnected &amp;&amp; !IsHardwareEmulatorEnabled, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+            <Border Background="White" VerticalAlignment="Center" Padding="5 10 5 10" TextBlock.FontSize="14">
+                <ctrl:ConnectionControl Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="400"/>
+                <Border.Effect>
+                    <DropShadowEffect Direction="180" ShadowDepth="3" Opacity="0.8" BlurRadius="30"/>
+                </Border.Effect>
+            </Border>
+        </Border>
+    </Grid>
+</mah:MetroWindow>

@@ -1,0 +1,1122 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="ChamberStateClosed" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <Grid.Resources>
+            <ResourceDictionary/>
+        </Grid.Resources>
+        <Viewbox Stretch="Uniform" Name="_____1">
+            <Canvas UseLayoutRounding="False" Width="210.0" Height="297.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,210.0,297.0"/>
+                </Canvas.Clip>
+            </Canvas>
+        </Viewbox>
+        <Viewbox Stretch="Uniform" Name="_1">
+            <Canvas UseLayoutRounding="False" Width="210.0" Height="297.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,210.0,297.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False" RenderTransform="0.26458333,0.0,0.0,0.26458333,220.00001,0.0">
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 644.16 202.4 l -2.55999 3.20002" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Fill>
+                            <LinearGradientBrush MappingMode="Absolute" StartPoint="343.36001,550.88" EndPoint="630.24,550.88">
+                                <GradientStop Color="#ff00b800" Offset="0.0"/>
+                                <GradientStop Color="#0000b800" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 344.48 533.12 L 629.12 568.64" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Fill>
+                            <LinearGradientBrush MappingMode="Absolute" StartPoint="617.28002,397.52" EndPoint="630.24,397.52">
+                                <GradientStop Color="#ff00b800" Offset="0.0"/>
+                                <GradientStop Color="#0000b800" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 629.12 568.64 L 618.4 226.4" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Fill>
+                            <LinearGradientBrush MappingMode="Absolute" StartPoint="332.48001,362.0" EndPoint="345.60001,362.0">
+                                <GradientStop Color="#ff00b800" Offset="0.0"/>
+                                <GradientStop Color="#0000b800" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 333.6 190.88 l 10.88 342.24" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Fill>
+                            <LinearGradientBrush MappingMode="Absolute" StartPoint="332.48001,208.63999" EndPoint="619.52002,208.63999">
+                                <GradientStop Color="#ff00b800" Offset="0.0"/>
+                                <GradientStop Color="#0000b800" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 618.4 226.4 L 333.6 190.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 349.6 526.88 l -5.12 6.24" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 644.16 202.4 L 316.64 161.6" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 316.64 161.6 L 314.08 164.64" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 656.32 585.44 L 644.16 202.4" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 656.32 585.44 l -2.56 3.20001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 653.76 588.64 l -12.16 -383.04" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 632.16 214.56 L 318.88 175.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 643.84 584 L 632.16 214.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 641.6 205.6 L 314.08 164.64" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 641.6 205.6 L 632.16 214.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00ad1b" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 314.08 164.64 L 318.88 175.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 330.72 544.8 L 643.84 584" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 326.24 547.68 l 327.52 40.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 643.84 584 l 9.91998 4.64001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 314.08 164.64 l 12.16 383.04" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 326.24 547.68 l 4.48001 -2.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 318.88 175.52 l 11.84 369.28" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="M 675.84 486.24 H 793.76 V 630.72 H 675.84 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 677.12 629.28 L 793.76 487.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 330.4 592.8 l 327.36 40.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 350.24 135.2 l 284.8 35.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 736.32 47.52 L 451.68 11.84" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 635.04 170.72 L 736.32 47.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 451.68 11.84 l -101.44 123.36" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 452.16 28.96 L 451.68 11.84" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 316.64 161.6 L 321.28 141.76" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 307.52 153.6 L 321.28 141.76" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 765.28 40.8 L 780 56.32" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="M 320 0 H 439.36 V 143.2 H 320 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 437.92 0 L 321.28 141.76" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="M 436.64 0 H 766.72 V 42.24 H 436.64 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 765.28 40.8 L 437.92 0" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 422.88 0 h 16.48 V 13.28 H 422.88 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 437.92 0 L 424.16 11.84" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 648.8 182.56 l 14.56 15.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 316.64 161.6 l 327.52 40.8" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 644.16 202.4 L 648.8 182.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 677.12 629.28 L 663.36 198.08" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 316.64 161.6 l -9.12002 -8" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 321.12 584.96 L 307.52 153.6" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 657.76 633.76 L 644.16 202.4" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 644.16 202.4 L 663.36 198.08" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 677.12 629.28 l -19.36 4.47998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 330.4 592.8 L 321.12 584.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 663.36 198.08 L 780 56.32" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 648.8 182.56 L 765.28 40.8" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 424.16 11.84 L 307.52 153.6" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 321.28 141.76 L 648.8 182.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 778.72 55.04 h 15.04 V 488.96 h -15.04 z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 793.76 487.52 L 780 56.32" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 352.64 523.04 l -3.04 3.84002" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 420.32 459.2 L 598.24 481.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 460.16 345.28 l -63.36 76.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 419.84 442.08 l 177.92 22.24" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 395.2 445.12 L 394.72 428" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 395.2 445.12 l 0.31998 2.08001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 395.52 447.2 l 1.12002 1.91999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 396.64 449.12 l 1.59998 1.92001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 398.24 451.04 l 2.40002 1.91998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 400.64 452.96 l 2.87998 1.76001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 403.52 454.72 l 3.68002 1.60001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 407.2 456.32 l 4.47998 1.28" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 411.68 457.6 l 5.12 1.11999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 416.8 458.72 l 3.52002 0.48001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 508.48 334.24 l -6.56 -0.47998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 501.92 333.76 H 494.72" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 494.72 333.76 l -7.51999 0.63998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 487.2 334.4 l -6.88 1.12" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 480.32 335.52 l -5.76001 1.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 474.56 336.96 L 469.92 338.72" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 469.92 338.72 l -3.84002 1.92001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 466.08 340.64 L 463.04 342.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 463.04 342.56 l -2.24002 2.08001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 460.8 344.64 L 460.16 345.28" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 453.92 29.6 L 365.44 137.12" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 453.92 29.6 l 0.31998 -0.319999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 338.88 191.52 l 10.72 335.36" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 349.6 526.88 l 279.36 34.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 446.08 362.4 L 441.12 204.16" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 439.2 146.24 l -1.6 -51.52" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.3134386,0.0,0.0,2.0897185,-1178.7363,15.529577" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 437.28 83.2 L 436.16 51.2" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 419.84 459.2 l -53.92 65.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 452.16 28.96 L 363.52 136.8" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 723.68 62.88 L 452.16 28.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 330.4 592.8 L 328.96 548" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 349.6 526.88 l 279.36 34.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff00b011" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 338.88 191.52 l 10.72 335.36" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 342.24 191.84 l 10.4 331.2" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 352.64 523.04 l 276.16 34.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 594.72 517.92 L 593.44 480.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 519.2 520.32 l -1.60003 -48.96" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 592.48 523.52 l 1.44 -2.08002" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 593.92 521.44 L 594.56 519.36" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 594.56 519.36 l 0.15997 -1.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 519.2 520.32 l 0.32001 2.08001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 519.52 522.4 l 0.95996 2.07996" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 520.48 524.48 l 1.76001 1.92004" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 522.24 526.4 l 2.23999 1.75995" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 524.48 528.16 l 3.04004 1.76001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 527.52 529.92 l 3.67999 1.60004" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 531.2 531.52 l 4.32001 1.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 535.52 532.96 l 5.27997 1.12" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 540.8 534.08 L 546.88 534.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 546.88 534.88 l 6.88001 0.32001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 553.76 535.2 L 561.12 534.88" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 561.12 534.88 l 7.35998 -0.79998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 568.48 534.08 L 574.88 532.8" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 574.88 532.8 l 5.27997 -1.59998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 580.16 531.2 l 4.32001 -1.91998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 584.48 529.28 L 588 527.36" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 588 527.36 L 590.72 525.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 590.72 525.44 l 1.76001 -1.91998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 396.8 422.24 l -1.28 2.08002" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 395.52 424.32 L 394.72 426.56" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 394.72 426.56 V 428" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 394.72 428 l 0.32001 2.07999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 395.04 430.08 L 396 432" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 396 432 l 1.76001 1.92001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 397.76 433.92 L 400 435.84" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 400 435.84 l 3.04001 1.76001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 403.04 437.6 l 3.67999 1.6" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 406.72 439.2 l 4.32001 1.28" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 411.04 440.48 l 5.28 1.12" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 416.32 441.6 l 3.51999 0.47998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 622.24 348.48 L 508.48 334.24" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 597.76 464.32 l 6.56 0.63998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 604.32 464.96 h 7.20001" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 611.52 464.96 l 7.51996 -0.63998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 619.04 464.32 l 6.72003 -1.12" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 625.76 463.2 h 0.15997" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 598.24 481.44 l 6.56 0.63999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 604.8 482.08 h 7.35998" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="M 612.16 482.08 L 619.52 481.44" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                    <Path RenderTransform="1.542292,0.0,0.0,1.542292,-1279.1682,43.551395" Stroke="#ff000000" StrokeLineJoin="Round" StrokeThickness="2.24" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                        <Path.Clip>
+                            <PathGeometry Figures="m 305.6 0 v 635.84 h 488.16 V 0 Z"/>
+                        </Path.Clip>
+                        <Path.Data>
+                            <PathGeometry Figures="m 619.52 481.44 l 6.88 -1.11999" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+    
+</ResourceDictionary>
