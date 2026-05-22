@@ -128,19 +128,19 @@ namespace LaserCleanChamber.Model
             //return;
             byte[] request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.WeldingModeSelect,
                 (ushort)WeldingMode.Continuous);
-            byte[] responce = laserPortManager.SendRequestAndWaitResponse(request);
+            byte[] response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.LaserPowerOutput,
                 (ushort)preset.Power);
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingSpeed,
                 (ushort)preset.ScanSpeed);
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingWidth,
                 (ushort)(preset.ScanWidth * 10));
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
 
             Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
                 preset.CleaningRepeats,
