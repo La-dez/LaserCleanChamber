@@ -82,6 +82,7 @@ namespace LaserCleanChamber.ViewModel
         {
             this.chamberDevice = chamberDevice;
             this.chamberDevice.OnErrorMessage += ChamberDevice_OnErrorMessage;
+            this.chamberDevice.OnCalibrationDone += ChamberDevice_OnCalibrationDone;
             this.chamberDevice.OnStateChanged += ChamberDevice_OnStateChanged;
             this.chamberDevice.OnTelemetryUpdated += ChamberDevice_OnTelemetryUpdated;
             ChamberDevice_OnTelemetryUpdated(chamberDevice.Telemetry);
@@ -101,6 +102,17 @@ namespace LaserCleanChamber.ViewModel
                 this.IsPistolPlaced = telemetry.PistolPlaced;
                 this.IsDoorClosed = telemetry.DoorClosed;
                 this.IsPlatePlaced = telemetry.PlatePlaced;
+            });
+        }
+
+        private void ChamberDevice_OnCalibrationDone(bool isSuccess)
+        {
+            if (!isSuccess)
+                return;
+
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                ApplyCleaningParameters();
             });
         }
 
@@ -166,6 +178,7 @@ namespace LaserCleanChamber.ViewModel
             try
             {
                 this.chamberDevice.OnErrorMessage -= ChamberDevice_OnErrorMessage;
+                this.chamberDevice.OnCalibrationDone -= ChamberDevice_OnCalibrationDone;
                 this.chamberDevice.OnStateChanged -= ChamberDevice_OnStateChanged;
                 this.chamberDevice.OnTelemetryUpdated -= ChamberDevice_OnTelemetryUpdated;
 
@@ -185,9 +198,20 @@ namespace LaserCleanChamber.ViewModel
             try
             {
                 if (cleaningSession.SelectedPreset != null)
+                {
                     this.chamberDevice.SetLaserParameters(cleaningSession.SelectedPreset);
+
+                    if (!IsCalibrating)
+                        ApplyCleaningParameters();
+                }
             }
             catch { }
+        }
+
+        private void ApplyCleaningParameters()
+        {
+            if (cleaningSession.SelectedPreset != null)
+                this.chamberDevice.SetCleaningParameters(cleaningSession.SelectedPreset);
         }
 
         public void Receive(NeedRecalculateTraceMessage message)

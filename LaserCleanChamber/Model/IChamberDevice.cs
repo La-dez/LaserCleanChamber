@@ -32,5 +32,6 @@ namespace LaserCleanChamber.Model
         void StartCalibrating();
 
         void SetLaserParameters(LaserPreset preset);
+        void SetCleaningParameters(LaserPreset preset);
     }
 }

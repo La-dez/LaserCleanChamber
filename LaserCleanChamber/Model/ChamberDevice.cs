@@ -141,6 +141,12 @@ namespace LaserCleanChamber.Model
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingWidth,
                 (ushort)(preset.ScanWidth * 10));
             response = laserPortManager.SendRequestAndWaitResponse(request);
+        }
+
+        public void SetCleaningParameters(LaserPreset preset)
+        {
+            if (State == ChamberDeviceState.Calibrating)
+                return;
 
             Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
                 preset.CleaningRepeats,
@@ -345,6 +351,7 @@ namespace LaserCleanChamber.Model
             try
             {
                 SetLaserParameters(preset);
+                SetCleaningParameters(preset);
 
                 List<TracePoint> localTrace = PrepareTraceInMotorCoordinates(trace);
 
