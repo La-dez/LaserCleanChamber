@@ -18,22 +18,22 @@ namespace LaserCleanChamber.ViewModel
         private readonly CleaningSession cleaningSession;
 
         [ObservableProperty]
-        private double minPower = LaserLimits.Get(LaserRegisters.LaserPowerOutput)?.MinValue ?? 0;
+        private double minPower = LaserLimits.Get<short>(LaserRegisters.LaserPowerOutput)?.MinValue ?? 0;
 
         [ObservableProperty]
-        private double maxPower = LaserLimits.Get(LaserRegisters.LaserPowerOutput)?.MaxValue ?? 0;
+        private double maxPower = LaserLimits.Get<short>(LaserRegisters.LaserPowerOutput)?.MaxValue ?? 0;
 
         [ObservableProperty]
-        private double minScanWidth = LaserLimits.Get(LaserRegisters.SwingWidth)?.MinValue ?? 0;
+        private double minScanWidth = LaserLimits.Get<short>(LaserRegisters.SwingWidth)?.MinValue ?? 0;
 
         [ObservableProperty]
-        private double maxScanWidth = LaserLimits.Get(LaserRegisters.SwingWidth)?.MaxValue ?? 0;
+        private double maxScanWidth = LaserLimits.Get<short>(LaserRegisters.SwingWidth)?.MaxValue ?? 0;
 
         [ObservableProperty]
-        private double minScanSpeed = LaserLimits.Get(LaserRegisters.SwingSpeed)?.MinValue ?? 0;
+        private double minScanSpeed = LaserLimits.Get<ushort>(LaserRegisters.SwingSpeed)?.MinValue ?? 0;
 
         [ObservableProperty]
-        private double maxScanSpeed = LaserLimits.Get(LaserRegisters.SwingSpeed)?.MaxValue ?? 0;
+        private double maxScanSpeed = LaserLimits.Get<ushort>(LaserRegisters.SwingSpeed)?.MaxValue ?? 0;
 
         public ObservableCollection<LaserPreset> Presets { get; set; } = new ObservableCollection<LaserPreset>();
 

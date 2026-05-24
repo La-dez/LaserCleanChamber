@@ -134,8 +134,13 @@ namespace LaserCleanChamber.Model
                 (ushort)preset.Power);
             response = laserPortManager.SendRequestAndWaitResponse(request);
 
+            var swingSpeedParameter = LaserLimits.Get<ushort>(LaserRegisters.SwingSpeed)
+                ?? throw new InvalidOperationException("Не найдены лимиты для скорости колебаний.");
+            ushort swingSpeedValue = Convert.ToUInt16(Math.Round(preset.ScanSpeed));
+            ushort swingSpeedModbus = swingSpeedParameter.ToModbusValue(swingSpeedValue);
+
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingSpeed,
-                (ushort)preset.ScanSpeed);
+                swingSpeedModbus);
             response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingWidth,

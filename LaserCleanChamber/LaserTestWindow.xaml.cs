@@ -24,9 +24,9 @@ namespace LaserCleanChamber
         //private SerialPort serialPort = null;
         LaserPortManager laserPortManager = null;
 
-        LaserParameter powerParam = LaserLimits.Get(LaserRegisters.LaserPowerOutput);
-        LaserParameter swingSpeedParam = LaserLimits.Get(LaserRegisters.SwingSpeed);
-        LaserParameter swingWidthParam = LaserLimits.Get(LaserRegisters.SwingWidth);
+        LaserParameter<short> powerParam = LaserLimits.Get<short>(LaserRegisters.LaserPowerOutput);
+        LaserParameter<ushort> swingSpeedParam = LaserLimits.Get<ushort>(LaserRegisters.SwingSpeed);
+        LaserParameter<short> swingWidthParam = LaserLimits.Get<short>(LaserRegisters.SwingWidth);
 
         public LaserTestWindow()
         {
