@@ -115,7 +115,7 @@ namespace LaserCleanChamber.Model
                 {
                     if(task == null || task.Status != TaskStatus.Running)
                     {
-                        //Telemetry = ReadTelemetery();
+                        Telemetry = ReadTelemetery();
                     }
                     token.WaitHandle.WaitOne(telemetryUpdatePeriod);
                 }
@@ -151,10 +151,10 @@ namespace LaserCleanChamber.Model
             Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
                 preset.CleaningRepeats,
                 preset.CooldownBetweenPassesSeconds);
-            SendAndWaitReply(cooldownAndRepeatsRequest, CancellationToken.None, 1000);
+            Send(cooldownAndRepeatsRequest);
 
             Frame cooldownLinesRequest = EncodeSetCooldownLines(preset.CooldownAfterLinesSeconds);
-            SendAndWaitReply(cooldownLinesRequest, CancellationToken.None, 1000);
+            Send(cooldownLinesRequest);
         }
 
         private void StopTask()
@@ -404,18 +404,7 @@ namespace LaserCleanChamber.Model
             catch { }
         }
 
-        private void Send(Frame request)
-        {
-            lock (serialLocker)
-            {
-                if (!serialPort.IsOpen)
-                    throw new Exception("Port closed");
 
-                var requestBuffer = request.ToByteArray();
-                serialPort.DiscardInBuffer();
-                serialPort.Write(requestBuffer, 0, requestBuffer.Length);
-            }
-        }
 
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
@@ -523,6 +512,19 @@ namespace LaserCleanChamber.Model
                     catch (TimeoutException) { }
                 }
                 throw new Exception("Timeout waiting reply");
+            }
+        }
+
+        private void Send(Frame request)
+        {
+            lock (serialLocker)
+            {
+                if (!serialPort.IsOpen)
+                    throw new Exception("Port closed");
+
+                var requestBuffer = request.ToByteArray();
+                serialPort.DiscardInBuffer();
+                serialPort.Write(requestBuffer, 0, requestBuffer.Length);
             }
         }
 
