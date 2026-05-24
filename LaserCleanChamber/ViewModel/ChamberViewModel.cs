@@ -110,10 +110,10 @@ namespace LaserCleanChamber.ViewModel
             if (!isSuccess)
                 return;
 
-            Application.Current.Dispatcher.BeginInvoke(() =>
-            {
-                ApplyCleaningParameters();
-            });
+            //Application.Current.Dispatcher.BeginInvoke(() =>
+            //{
+            //    ApplyCleaningParameters();
+            //});
         }
 
         private void ChamberDevice_OnStateChanged(ChamberDeviceState obj)
