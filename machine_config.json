@@ -10,7 +10,7 @@
   "Hardware": {
     "BaudRate": 115200,
     "VideoDeviceName": "CCX2F3299",
-    "UseHardwareEmulator": false
+    "UseHardwareEmulator": true
   },
   "UI": {
     "IsDarkMode": true

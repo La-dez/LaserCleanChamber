@@ -115,7 +115,7 @@ namespace LaserCleanChamber.Model
                 {
                     if(task == null || task.Status != TaskStatus.Running)
                     {
-                        //Telemetry = ReadTelemetery();
+                        Telemetry = ReadTelemetery();
                     }
                     token.WaitHandle.WaitOne(telemetryUpdatePeriod);
                 }
@@ -128,11 +128,11 @@ namespace LaserCleanChamber.Model
             //return;
             byte[] request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.WeldingModeSelect,
                 (ushort)WeldingMode.Continuous);
-            byte[] responce = laserPortManager.SendRequestAndWaitResponse(request);
+            byte[] response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.LaserPowerOutput,
                 (ushort)preset.Power);
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
 
             var swingSpeedParameter = LaserLimits.Get<ushort>(LaserRegisters.SwingSpeed)
                 ?? throw new InvalidOperationException("Не найдены лимиты для скорости колебаний.");
@@ -141,11 +141,25 @@ namespace LaserCleanChamber.Model
 
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingSpeed,
                 swingSpeedModbus);
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
 
             request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.SwingWidth,
                 (ushort)(preset.ScanWidth * 10));
-            responce = laserPortManager.SendRequestAndWaitResponse(request);
+            response = laserPortManager.SendRequestAndWaitResponse(request);
+        }
+
+        public void SetCleaningParameters(LaserPreset preset)
+        {
+            if (State == ChamberDeviceState.Calibrating)
+                return;
+
+            Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
+                preset.CleaningRepeats,
+                preset.CooldownBetweenPassesSeconds);
+            Send(cooldownAndRepeatsRequest);
+
+            Frame cooldownLinesRequest = EncodeSetCooldownLines(preset.CooldownAfterLinesSeconds);
+            Send(cooldownLinesRequest);
         }
 
         private void StopTask()
@@ -342,6 +356,7 @@ namespace LaserCleanChamber.Model
             try
             {
                 SetLaserParameters(preset);
+                SetCleaningParameters(preset);
 
                 List<TracePoint> localTrace = PrepareTraceInMotorCoordinates(trace);
 
@@ -394,18 +409,7 @@ namespace LaserCleanChamber.Model
             catch { }
         }
 
-        private void Send(Frame request)
-        {
-            lock (serialLocker)
-            {
-                if (!serialPort.IsOpen)
-                    throw new Exception("Port closed");
 
-                var requestBuffer = request.ToByteArray();
-                serialPort.DiscardInBuffer();
-                serialPort.Write(requestBuffer, 0, requestBuffer.Length);
-            }
-        }
 
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
@@ -513,6 +517,19 @@ namespace LaserCleanChamber.Model
                     catch (TimeoutException) { }
                 }
                 throw new Exception("Timeout waiting reply");
+            }
+        }
+
+        private void Send(Frame request)
+        {
+            lock (serialLocker)
+            {
+                if (!serialPort.IsOpen)
+                    throw new Exception("Port closed");
+
+                var requestBuffer = request.ToByteArray();
+                serialPort.DiscardInBuffer();
+                serialPort.Write(requestBuffer, 0, requestBuffer.Length);
             }
         }
 

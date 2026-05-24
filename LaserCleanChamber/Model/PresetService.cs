@@ -43,7 +43,10 @@ namespace LaserCleanChamber.Model
                 Name = name,
                 Power = 10,
                 ScanWidth = 20,
-                ScanSpeed = 30
+                ScanSpeed = 30,
+                CleaningRepeats = 1,
+                CooldownBetweenPassesSeconds = 0,
+                CooldownAfterLinesSeconds = 0
             };
         }
 
