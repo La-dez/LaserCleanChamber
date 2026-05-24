@@ -8,7 +8,7 @@
         xmlns:valid="clr-namespace:LaserCleanChamber.View.Validations"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Настройки сканирования" Height="350" Width="600"
+        Title="Настройки сканирования" Height="350" Width="960"
         DataContext="{StaticResource mainViewModel}" Padding="2 2 2 20" Closing="Window_Closing">
     <Window.Resources>
         <valid:RangeRule x:Key="rangeRule"/>
@@ -73,6 +73,54 @@
                                 <mah:NumericUpDown Value="{Binding ScanSpeed, UpdateSourceTrigger=PropertyChanged}" 
                                    Minimum="{Binding DataContext.MinScanSpeed, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                    Maximum="{Binding DataContext.MaxScanSpeed, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Повторы" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CleaningRepeats}" Margin="4,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <mah:NumericUpDown Value="{Binding CleaningRepeats, UpdateSourceTrigger=PropertyChanged}"
+                                                   Minimum="0"
+                                                   Maximum="255"
+                                                   NumericInputMode="All"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Пауза между проходами (с)" Width="1.2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CooldownBetweenPassesSeconds}" Margin="4,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <mah:NumericUpDown Value="{Binding CooldownBetweenPassesSeconds, UpdateSourceTrigger=PropertyChanged}"
+                                                   Minimum="0"
+                                                   Maximum="600"
+                                                   NumericInputMode="All"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Пауза после линий (с)" Width="1.2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CooldownAfterLinesSeconds}" Margin="4,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <mah:NumericUpDown Value="{Binding CooldownAfterLinesSeconds, UpdateSourceTrigger=PropertyChanged}"
+                                                   Minimum="0"
+                                                   Maximum="600"
+                                                   NumericInputMode="All"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>

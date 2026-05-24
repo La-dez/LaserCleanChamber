@@ -144,5 +144,10 @@ namespace LaserCleanChamber.Model
         {
 
         }
+
+        public void SetCleaningParameters(LaserPreset preset)
+        {
+
+        }
     }
 }

@@ -21,7 +21,9 @@ namespace LaserCleanChamber.Model.Communication
         STMP_MOVE_ABS_COORD = 0xC3,
         STMP_SWITCH_OFF = 0xC6,
         SEND_TRAECTORY = 0xC7,
-        MSG_LASER_CLEAN_SWITCH = 0xC8
+        MSG_LASER_CLEAN_SWITCH = 0xC8,
+        MSG_SET_COOLDOWN_AND_REPEATS_CLEANING = 0xC9,
+        MSG_SET_COOLDOWN_LINES = 0xCA,
     }
 
     public static class Protocol
@@ -71,6 +73,30 @@ namespace LaserCleanChamber.Model.Communication
         public static Frame EncodeLaserCleanSwitch(bool on)
         {
             return new Frame((byte)MessageType.MSG_LASER_CLEAN_SWITCH, [(byte)(on ? 1 : 0)]);
+        }
+
+        public static Frame EncodeSetCooldownAndRepeatsCleaning(int repeats, int waitSeconds)
+        {
+            repeats = Math.Clamp(repeats, 0, byte.MaxValue);
+            waitSeconds = Math.Clamp(waitSeconds, 0, 600);
+
+            List<byte> payload = new List<byte>(3)
+            {
+                (byte)repeats
+            };
+            SerializeUInt16MsbFirst((ushort)waitSeconds, payload);
+
+            return new Frame((byte)MessageType.MSG_SET_COOLDOWN_AND_REPEATS_CLEANING, payload.ToArray());
+        }
+
+        public static Frame EncodeSetCooldownLines(int waitSeconds)
+        {
+            waitSeconds = Math.Clamp(waitSeconds, 0, 600);
+
+            List<byte> payload = new List<byte>(2);
+            SerializeUInt16MsbFirst((ushort)waitSeconds, payload);
+
+            return new Frame((byte)MessageType.MSG_SET_COOLDOWN_LINES, payload.ToArray());
         }
 
         public static Frame EncodeLaserClean(bool cleaningOn)
