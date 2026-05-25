@@ -85,7 +85,7 @@ namespace LaserCleanChamber.Model
                     throw new NotImplementedException();
             }
 
-            var path = PathGenerator.ProjectPathTo3D(model.Mesh, path2d, Margin, 1, 0);
+            var path = PathGenerator.ProjectPathTo3D(model, path2d, Margin, 1, 0);
 
             Trajectory = path;
         }

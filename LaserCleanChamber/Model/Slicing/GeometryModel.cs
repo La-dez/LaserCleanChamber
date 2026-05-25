@@ -15,10 +15,12 @@ namespace LaserCleanChamber.Model.Slicing
         /// Модель в формате geometry3Sharp для всех вычислений.
         /// </summary>
         public DMesh3 Mesh { get; private set; }
+        public DMeshAABBTree3 SpatialIndex { get; init; }
 
         private GeometryModel(DMesh3 mesh)
         {
             Mesh = mesh;
+            SpatialIndex = new DMeshAABBTree3(Mesh, true);
         }
 
         /// <summary>

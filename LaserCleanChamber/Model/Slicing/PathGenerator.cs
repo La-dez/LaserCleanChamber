@@ -125,14 +125,14 @@ namespace LaserCleanChamber.Model.Slicing
             return path;
         }
 
-        public static List<PathSegment<Vector3d>> ProjectPathTo3D(DMesh3 mesh, List<PathSegment<Vector2d>> path2d,
+        public static List<PathSegment<Vector3d>> ProjectPathTo3D(GeometryModel model, List<PathSegment<Vector2d>> path2d,
             double Margin, double traceStep, double zOffset)
         {
             var path3d = new List<PathSegment<Vector3d>>();
-            if (mesh == null || path2d.Count == 0) return path3d;
+            if (model == null || path2d.Count == 0) return path3d;
 
-            var spatialIndex = new DMeshAABBTree3(mesh, true);
-            var bounds = mesh.CachedBounds;
+            var spatialIndex = model.SpatialIndex;
+            var bounds = model.Mesh.CachedBounds;
             
             double simplificationTolerance = 1e-4;
 
