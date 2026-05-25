@@ -127,6 +127,11 @@ namespace LaserCleanChamber.ViewModel
         [RelayCommand]
         public void StartCleaning()
         {
+            if(!IsDoorClosed)
+            {
+                MessageBox.Show("Невозможно начать отчистку: дверь камеры открыта.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             try
             {
                 var preset = this.PresetsViewModel.SelectedPreset;

@@ -26,7 +26,7 @@
                 InactiveColor="#FF0055"
                 ActiveColor="#22C55E"/>
 
-            <local:IndicatorItem Grid.Row="1" Margin="10"
+            <!--<local:IndicatorItem Grid.Row="1" Margin="10"
                 Header="ФИЛЬЕРА"
                 IsActive="{calc:Binding IsPlatePlaced, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                 ActiveText="УСТАНОВЛЕНА"
@@ -40,7 +40,7 @@
                 ActiveText="УСТАНОВЛЕН"
                 InactiveText="ОТСУТСТВУЕТ"
                 InactiveColor="#FF0055"
-                ActiveColor="#22C55E"/>
+                ActiveColor="#22C55E"/>-->
         </Grid>
     </ScrollViewer>
 </UserControl>

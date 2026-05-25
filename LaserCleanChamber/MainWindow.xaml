@@ -116,6 +116,13 @@
                             </Button>
                         </StackPanel>
                     </Border>
+
+                    <Label Grid.Row="3"
+                               Content="Дверь"
+                               Margin="5,-3,10,-15"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="Bold"/>
                 </Grid>
             </GroupBox>
 
@@ -124,9 +131,9 @@
 
             <Grid Grid.Column="2" Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Margin="5" Header="Видео" Background="White">
@@ -138,12 +145,6 @@
 
                         <ctrl:USBCameraControl Grid.Row="0"/>
 
-                        <Label Grid.Row="1"
-                               Content="Дверь"
-                               Margin="10,4,10,4"
-                               HorizontalAlignment="Center"
-                               FontSize="14"
-                               FontWeight="Bold"/>
                     </Grid>
                 </GroupBox>
 

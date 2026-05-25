@@ -10,7 +10,7 @@
   "Hardware": {
     "BaudRate": 115200,
     "VideoDeviceName": "CCX2F3299",
-    "UseHardwareEmulator": false
+    "UseHardwareEmulator": true
   },
   "UI": {
     "IsDarkMode": true
@@ -18,9 +18,9 @@
   "Tracing": {
     "ModelFileName": "Mesh/Plate_v1.stl",
     "Algorythm": "SnakeModif",
-    "Overlap": -125,
+    "Overlap": 50,
     "TraceStep": 1,
     "ApproxError": 3,
-    "Margin": 0
+    "Margin": 15
   }
 }
