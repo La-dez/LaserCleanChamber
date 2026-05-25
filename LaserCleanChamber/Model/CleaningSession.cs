@@ -63,7 +63,7 @@ namespace LaserCleanChamber.Model
             ROI = new Rect(-50, -60, 100, 120);
         }
 
-        public void CalculateTrajectory()
+        public void CalculateTrajectory_v1()
         {
             GeometryModel? model = GetModel3D();
 
@@ -86,6 +86,33 @@ namespace LaserCleanChamber.Model
             }
 
             var path = PathGenerator.ProjectPathTo3D(model.Mesh, path2d, Margin, 1, 0);
+
+            Trajectory = path;
+        }
+
+        public void CalculateTrajectory()
+        {
+            GeometryModel? model = GetModel3D();
+
+            if (model == null || SelectedPreset == null)
+                throw new InvalidOperationException("Нет модели или пресета");
+
+            var bounds2d = new g3.AxisAlignedBox2d(ROI.X, ROI.Y, ROI.X + ROI.Width, ROI.Y + ROI.Height);
+
+            List<PathSegment<g3.Vector2d>> path2d = new List<PathSegment<g3.Vector2d>>();
+            switch (TracingAlgorithm)
+            {
+                case TracingAlgorithm.Snake:
+                    path2d = PathGenerator.GenerateSnakePath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
+                    break;
+                case TracingAlgorithm.SnakeModif:
+                    path2d = PathGenerator.GenerateSnakeModifPath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            var path = PathGenerator.ProjectPathTo3D_v2(model.Mesh, path2d, Margin, 1, 0, bounds2d);
 
             Trajectory = path;
         }

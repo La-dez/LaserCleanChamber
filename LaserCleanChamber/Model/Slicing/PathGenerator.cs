@@ -1,13 +1,15 @@
-﻿using System;
+﻿using ControlzEx.Standard;
+using g3;
+using System;
 using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
-using g3;
-using System.Collections.Generic;
-using System.Windows.Media.Media3D;
-using System.Security.Cryptography.Pkcs;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace LaserCleanChamber.Model.Slicing
 {
@@ -166,8 +168,56 @@ namespace LaserCleanChamber.Model.Slicing
                 path3dOrto.AddRange(ortoSeg);
             }
 
-            return path3dOrto; //path3d;
+            return path3dOrto; 
+            return path3d;
         }
+
+        public static List<PathSegment<Vector3d>> ProjectPathTo3D_v2(DMesh3 mesh, List<PathSegment<Vector2d>> path2d,
+           double Margin, double traceStep, double zOffset, AxisAlignedBox2d ROI2d)
+        {
+            var path3d = new List<PathSegment<Vector3d>>();
+            if (mesh == null || path2d.Count == 0) return path3d;
+
+            var spatialIndex = new DMeshAABBTree3(mesh, true);
+            var bounds = mesh.CachedBounds;
+
+            double simplificationTolerance = 1e-4;
+
+            for (int i = 0; i < path2d.Count; i++)
+            {
+                Vector2d p0 = path2d[i].p0;
+                Vector2d p1 = path2d[i].p1;
+
+                List<PathSegment<Vector3d>> traceResult = TraceAlongLine(spatialIndex, bounds, p0, p1, traceStep, Margin, zOffset, path2d[i].laserOn);
+                if (path2d[i].laserOn && traceResult.Count > 0 && Margin > 0)
+                    traceResult = ExtrapolateLine_v2(traceResult, Margin, ROI2d);
+                List<PathSegment<Vector3d>> simplifiedSegment = SimplifyTrace(traceResult, simplificationTolerance);
+
+                path3d.AddRange(simplifiedSegment);
+            }
+
+            for (int i = 0; i < path3d.Count - 1; i++)
+            {
+                var first = path3d[i];
+                var second = path3d[i + 1];
+
+                if (first.p1 != second.p0)
+                {
+                    path3d.Insert(i + 1, new PathSegment<Vector3d>(first.p1, second.p0, false));
+                    i++;
+                }
+            }
+
+            var path3dOrto = new List<PathSegment<Vector3d>>();
+            for (int i = 0; i < path3d.Count; i++)
+            {
+                var ortoSeg = OrtoApproxSegment(path3d[i], 3);
+                path3dOrto.AddRange(ortoSeg);
+            }
+
+            return path3dOrto;
+        }
+
 
         private static double Hypot(double x, double y, double z = 0)
         {
@@ -208,6 +258,33 @@ namespace LaserCleanChamber.Model.Slicing
             }
 
             return extrapolated;
+        }
+
+        private static List<PathSegment<Vector3d>> ExtrapolateLine_v2(List<PathSegment<Vector3d>> traceResult, double xMargins, AxisAlignedBox2d bounds2D)
+        {
+
+            var lastSegment = traceResult.Last();
+            var firstSegment = traceResult.First();
+            bool invertionCoef = firstSegment.p1.x > firstSegment.p0.x ;
+            double newStartX = invertionCoef ? 
+                            Math.Max(firstSegment.p0.x - xMargins, bounds2D.Min.x) : 
+                            Math.Min(firstSegment.p0.x + xMargins, bounds2D.Max.x);
+            double newEndX = invertionCoef ?
+                            Math.Min(lastSegment.p1.x + xMargins, bounds2D.Max.x) :
+                            Math.Max(lastSegment.p1.x - xMargins, bounds2D.Min.x);
+            traceResult.Insert(0,
+                new PathSegment<Vector3d>(
+                    new Vector3d(newStartX, firstSegment.p0.y, firstSegment.p0.z),
+                    firstSegment.p0,
+                    true)
+                );
+            traceResult.Add(new PathSegment<Vector3d>(
+                lastSegment.p1,
+                new Vector3d(newEndX, lastSegment.p1.y, lastSegment.p1.z),
+                true)
+                );
+
+            return traceResult;
         }
 
         private static double Shortest(double a, double b, double c)
