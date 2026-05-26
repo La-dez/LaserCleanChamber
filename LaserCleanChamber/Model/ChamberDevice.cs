@@ -198,7 +198,11 @@ namespace LaserCleanChamber.Model
             Telemetry telemetry = Protocol.DecodeTelemetry(responce);
             return telemetry;
         }
-
+        public bool IsTelemetrySaysCleaning()
+        {
+            var telemetry = ReadTelemetery();
+            return telemetry.IsCleaning;
+        }
         uint calibrateAxisSync(MotorAxis axis, CancellationToken token, int timeout_ms)
         {
             var request = EncodeStmpCalibration(axis);

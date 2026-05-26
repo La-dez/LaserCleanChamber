@@ -41,7 +41,6 @@ namespace LaserCleanChamber.Model
         public double ApproxError { get; set; }
         public double Margin { get; set; }
         public LaserPreset? SelectedPreset { get; set; }
-        //public List<g3.Vector3d>? Trajectory { get; private set; }
         public List<PathSegment<g3.Vector3d>>? Trajectory { get; private set; }
 
         public CleaningSession(AppSettings settings)

@@ -30,6 +30,7 @@ namespace LaserCleanChamber.Model
         void StartCleaning(LaserPreset preset, List<PathSegment<g3.Vector3d>> trace);
         void StopCleaning();
         void StartCalibrating();
+        bool IsTelemetrySaysCleaning();
 
         void SetLaserParameters(LaserPreset preset);
         void SetCleaningParameters(LaserPreset preset);

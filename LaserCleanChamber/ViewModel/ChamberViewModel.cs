@@ -148,6 +148,7 @@ namespace LaserCleanChamber.ViewModel
         [RelayCommand]
         public void StopCleaning()
         {
+            bool wasCleaning = this.chamberDevice.IsTelemetrySaysCleaning();
             try
             {
                 this.chamberDevice.StopCleaning();
@@ -155,6 +156,12 @@ namespace LaserCleanChamber.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"Не удалось остановить процесс отчистки: {ex.Message}");
+            }
+            if(!wasCleaning)
+            {
+                MessageBox.Show($"Команда остановки была отправлена, но устройство сообщает, " +
+                                $"что очистка не происходила во время запроса остановки", 
+                                "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

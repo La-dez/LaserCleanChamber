@@ -39,10 +39,11 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center"
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center"
                                     IsEnabled="{Binding IsIdle, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                             <TextBlock Text="Режим работы:" Margin="4"/>
                             <Grid>
@@ -82,6 +83,19 @@
                                     <ic:PackIconMaterial Kind="Play" Width="26" Height="22" HorizontalAlignment="Center" Margin="4"
                                                          VerticalAlignment="Center"/>
                                     <TextBlock Text="НАЧАТЬ ОТЧИСТКУ" Margin="4" FontSize="14"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button Margin="4" Style="{DynamicResource MahApps.Styles.Button}"
+                            Command="{Binding StopCleaningCommand}"
+                            IsEnabled="{calc:Binding IsIdle, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                            Visibility="{calc:Binding !IsCleaning, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, FalseToVisibility=Collapsed}"
+                            Width="200">
+                                <StackPanel Margin="4" Orientation="Horizontal">
+                                    <ic:PackIconMaterial Kind="Stop" Width="26" Height="22" HorizontalAlignment="Center" Margin="4"
+                                 VerticalAlignment="Center"/>
+                                    <TextBlock Text="ОСТАНОВИТЬ" Margin="4" FontSize="14"/>
                                 </StackPanel>
                             </Button>
                         </Grid>

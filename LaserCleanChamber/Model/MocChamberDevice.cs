@@ -79,7 +79,13 @@ namespace LaserCleanChamber.Model
 
             currentTask = Task.Run(() => Cleaning(preset, trace, cancellationTokenSource.Token), cancellationTokenSource.Token);
         }
-
+        public bool IsTelemetrySaysCleaning()
+        {
+            // В реальной реализации здесь бы анализировались данные телеметрии, 
+            // например, по текущей мощности лазера, состоянию датчиков и т.д.
+            // Для мок-устройства просто возвращаем true, если состояние "Cleaning".
+            return this.State == ChamberDeviceState.Cleaning;
+        }
         private void Cleaning(LaserPreset preset, List<PathSegment<g3.Vector3d>> trace, CancellationToken token)
         {
             try
