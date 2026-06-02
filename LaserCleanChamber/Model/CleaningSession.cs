@@ -1,5 +1,8 @@
 ﻿using LaserCleanChamber.Configuration;
+using LaserCleanChamber.Model.Path;
 using LaserCleanChamber.Model.Slicing;
+using LaserCleanChamber.Model.TracingAlgorithms;
+using LaserCleanChamber.Model.TracingAlgorithms.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +14,7 @@ using WPFMediaKit.DirectShow.Controls;
 
 namespace LaserCleanChamber.Model
 {
-    public enum TracingAlgorithm : int { Snake, SnakeModif }
+    
     public enum PlateSides : int { Top, Bottom }
     
     public class CleaningSession
@@ -62,32 +65,32 @@ namespace LaserCleanChamber.Model
             ROI = new Rect(-50, -60, 100, 120);
         }
 
-        public void CalculateTrajectory_v1()
-        {
-            GeometryModel? model = GetModel3D();
+        //public void CalculateTrajectory_old()
+        //{
+        //    GeometryModel? model = GetModel3D();
 
-            if (model == null || SelectedPreset == null)
-                throw new InvalidOperationException("Нет модели или пресета");
+        //    if (model == null || SelectedPreset == null)
+        //        throw new InvalidOperationException("Нет модели или пресета");
 
-            var bounds2d = new g3.AxisAlignedBox2d(ROI.X, ROI.Y, ROI.X + ROI.Width, ROI.Y + ROI.Height);
+        //    var bounds2d = new g3.AxisAlignedBox2d(ROI.X, ROI.Y, ROI.X + ROI.Width, ROI.Y + ROI.Height);
 
-            List<PathSegment<g3.Vector2d>> path2d = new List<PathSegment<g3.Vector2d>>();
-            switch (TracingAlgorithm)
-            {
-                case TracingAlgorithm.Snake:
-                    path2d = PathGenerator.GenerateSnakePath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
-                    break;
-                case TracingAlgorithm.SnakeModif:
-                    path2d = PathGenerator.GenerateSnakeModifPath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+        //    List<PathSegment<g3.Vector2d>> path2d = new List<PathSegment<g3.Vector2d>>();
+        //    switch (TracingAlgorithm)
+        //    {
+        //        case TracingAlgorithm.Snake:
+        //            path2d = PathGenerator.GenerateSnakePath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
+        //            break;
+        //        case TracingAlgorithm.SnakeModif:
+        //            path2d = PathGenerator.GenerateSnakeModifPath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
+        //            break;
+        //        default:
+        //            throw new NotImplementedException();
+        //    }
 
-            var path = PathGenerator.ProjectPathTo3D(model, path2d, Margin, 1, 0);
+        //    var path = PathGenerator.ProjectPathTo3D(model, path2d, Margin, 1, 0, bounds2d, TracingAlgorithm);
 
-            Trajectory = path;
-        }
+        //    Trajectory = path;
+        //}
 
         public void CalculateTrajectory()
         {
@@ -98,20 +101,16 @@ namespace LaserCleanChamber.Model
 
             var bounds2d = new g3.AxisAlignedBox2d(ROI.X, ROI.Y, ROI.X + ROI.Width, ROI.Y + ROI.Height);
 
-            List<PathSegment<g3.Vector2d>> path2d = new List<PathSegment<g3.Vector2d>>();
+            ITracingAlgorithm tracingAlgorithm;
             switch (TracingAlgorithm)
             {
-                case TracingAlgorithm.Snake:
-                    path2d = PathGenerator.GenerateSnakePath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
-                    break;
-                case TracingAlgorithm.SnakeModif:
-                    path2d = PathGenerator.GenerateSnakeModifPath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
-                    break;
+                case TracingAlgorithm.Snake: tracingAlgorithm = new StandardSnake(); break;
+                case TracingAlgorithm.SnakeModif: tracingAlgorithm = new ModifiedSnake(); break;
                 default:
                     throw new NotImplementedException();
             }
-
-            var path = PathGenerator.ProjectPathTo3D_v2(model.Mesh, path2d, Margin, 1, 0, bounds2d);
+            var path2d = tracingAlgorithm.GeneratePath2D(bounds2d, SelectedPreset.ScanWidth, Overlap / 100);
+            var path = tracingAlgorithm.ProjectPathTo3D(model, path2d, Margin, 1, 0, bounds2d);
 
             Trajectory = path;
         }

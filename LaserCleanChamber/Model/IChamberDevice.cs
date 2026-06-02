@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using LaserCleanChamber.Model.Path;
 
 namespace LaserCleanChamber.Model
 {

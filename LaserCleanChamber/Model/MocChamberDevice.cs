@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using static LaserCleanChamber.Model.Communication.Protocol;
+using LaserCleanChamber.Model.Path;
 
 namespace LaserCleanChamber.Model
 {

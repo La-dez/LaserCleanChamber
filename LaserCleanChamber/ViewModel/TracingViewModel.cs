@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography.Pkcs;
 using System.Windows;
 using static LaserCleanChamber.ViewModel.MvvmMessages;
+using LaserCleanChamber.Model.TracingAlgorithms;
+using LaserCleanChamber.Model.Path;
 
 namespace LaserCleanChamber.ViewModel
 {

@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using g3;
 using HelixToolkit.Wpf;
+using LaserCleanChamber.Model.Path;
 
 namespace LaserCleanChamber.Model.Slicing
 {

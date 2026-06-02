@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using LaserCleanChamber.Model.TracingAlgorithms;
 
 namespace LaserCleanChamber.View.Converters
 {
