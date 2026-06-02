@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LaserCleanChamber.Configuration;
+using LaserCleanChamber.Logging;
 using LaserCleanChamber.Model;
 using LaserCleanChamber.Model.Communication;
 using SharpVectors.Renderers;
@@ -50,9 +51,11 @@ namespace LaserCleanChamber.ViewModel
             {
                 IChamberDevice chamberDevice = new MocChamberDevice();
                 this.ChamberViewModel = new ChamberViewModel(chamberDevice, currentSettings);
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=EmulatorConnected"));
             }
             catch (Exception ex)
             {
+                AppLogging.App.Error(ex, AppLogging.Prefix("APP", "Action=EmulatorConnectionFailed"));
                 MessageBox.Show($"Не удалось подключиться: {ex.Message}");
             }
         }
@@ -67,6 +70,7 @@ namespace LaserCleanChamber.ViewModel
                 {
                     IChamberDevice chamberDevice = new MocChamberDevice();
                     this.ChamberViewModel = new ChamberViewModel(chamberDevice, currentSettings);
+                    AppLogging.App.Information(AppLogging.Prefix("APP", "Action=EmulatorConnected"));
                     return;
                 }
 
@@ -85,9 +89,11 @@ namespace LaserCleanChamber.ViewModel
                     currentSettings.Calibration);
 
                 this.ChamberViewModel = new ChamberViewModel(realChamberDevice, currentSettings);
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=HardwareConnected, ChamberPort={ChamberPort}, LaserPort={LaserPort}"), ConnectionViewModel.SelectedChamberDevice.PortName, ConnectionViewModel.SelectedLaserDevice.PortName);
             }
             catch (Exception ex)
             {
+                AppLogging.App.Error(ex, AppLogging.Prefix("APP", "Action=HardwareConnectionFailed"));
                 MessageBox.Show($"Не удалось подключиться: {ex.Message}");
             }
         }
@@ -108,6 +114,7 @@ namespace LaserCleanChamber.ViewModel
 
                 this.ChamberViewModel?.Dispose();
                 this.ChamberViewModel = null;
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=HardwareDisconnected"));
             }
             catch { }
         }

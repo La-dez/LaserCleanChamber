@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LaserCleanChamber.Model;
 using LaserCleanChamber.Model.LaserComm;
+using LaserCleanChamber.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -65,6 +66,17 @@ namespace LaserCleanChamber.ViewModel
             try
             {
                 PresetService.Save(Presets);
+                if (SelectedPreset != null)
+                {
+                    AppLogging.App.Information(AppLogging.Prefix("APP", "Action=PresetUpdated, Name={Name}, Power={Power}, ScanWidth={ScanWidth}, ScanSpeed={ScanSpeed}, CleaningRepeats={CleaningRepeats}, CooldownBetweenPassesSeconds={CooldownBetweenPassesSeconds}, CooldownAfterLinesSeconds={CooldownAfterLinesSeconds}"),
+                        SelectedPreset.Name,
+                        SelectedPreset.Power,
+                        SelectedPreset.ScanWidth,
+                        SelectedPreset.ScanSpeed,
+                        SelectedPreset.CleaningRepeats,
+                        SelectedPreset.CooldownBetweenPassesSeconds,
+                        SelectedPreset.CooldownAfterLinesSeconds);
+                }
                 NotifyPresetChanged();
             }
             catch (Exception ex) { }

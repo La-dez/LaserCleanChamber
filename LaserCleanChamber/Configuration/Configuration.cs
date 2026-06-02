@@ -18,6 +18,8 @@ namespace LaserCleanChamber.Configuration
         public UiSettings UI { get; set; } = new UiSettings();
 
         public TracingSettings Tracing { get; set; } = new TracingSettings();
+
+        public LoggingSettings Logging { get; set; } = new LoggingSettings();
     }
 
     // Класс только для калибровок осей
@@ -53,5 +55,19 @@ namespace LaserCleanChamber.Configuration
     public class UiSettings
     {
         public bool IsDarkMode { get; set; } = true;
+    }
+
+    public class LoggingSettings
+    {
+        public bool Enabled { get; set; } = true;
+        public bool EnabledAppLogger { get; set; } = true;
+        public bool EnabledControllerLogger { get; set; } = true;
+        public bool EnabledTelemetryLogger { get; set; } = true;
+        public bool EnabledLaserLogger { get; set; } = true;
+        public string MinimumLevel { get; set; } = "Information";
+        public int RetentionDaysAppLogs { get; set; } = 30;
+        public int RetentionDaysControllerLogs { get; set; } = 30;
+        public int RetentionDaysTelemetryLogs { get; set; } = 30;
+        public int RetentionDaysLaserLogs { get; set; } = 30;
     }
 }
