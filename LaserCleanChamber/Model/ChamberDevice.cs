@@ -1,25 +1,18 @@
-﻿using ControlzEx.Standard;
-using LaserCleanChamber.Configuration;
+﻿using LaserCleanChamber.Configuration;
+using LaserCleanChamber.Logging;
+using LaserCleanChamber.Logging.TrajectoryDiagnostics;
 using LaserCleanChamber.Model.Communication;
 using LaserCleanChamber.Model.LaserComm;
-using LaserCleanChamber.Model.Slicing;
+using LaserCleanChamber.Model.Path;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using static LaserCleanChamber.Model.Communication.Protocol;
-using LaserCleanChamber.Model.Path;
-using LaserCleanChamber.Logging;
-using LaserCleanChamber.Logging.TrajectoryDiagnostics;
-using System.Text.Json;
 using System.Windows;
 
 namespace LaserCleanChamber.Model
@@ -75,7 +68,7 @@ namespace LaserCleanChamber.Model
 
         private Task? task;
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private int timeout_ms = 3000;
+        private int timeoutMs = 3000;
 
         private Task? telemetryTask;
         private CancellationTokenSource ctsTelemetry = new CancellationTokenSource();
@@ -208,9 +201,9 @@ namespace LaserCleanChamber.Model
         private Telemetry ReadTelemetery()
         {
             var request = Protocol.EncodeGetTelemetery();
-            var responce = SendAndWaitReply(request, cts.Token, timeout_ms);
+            var response = SendAndWaitReply(request, cts.Token, timeoutMs);
 
-            Telemetry telemetry = Protocol.DecodeTelemetry(responce);
+            Telemetry telemetry = Protocol.DecodeTelemetry(response);
             AppLogging.Telemetry.Information(AppLogging.Prefix("TEL", "Action=TelemetryRead, DoorClosed={DoorClosed}, PlatePlaced={PlatePlaced}, PistolPlaced={PistolPlaced}, IsCleaning={IsCleaning}, IsError={IsError}, TemperatureInside_degC={TemperatureInside_degC}"),
                 telemetry.DoorClosed,
                 telemetry.PlatePlaced,
@@ -225,17 +218,17 @@ namespace LaserCleanChamber.Model
             var telemetry = ReadTelemetery();
             return telemetry.IsCleaning;
         }
-        uint calibrateAxisSync(MotorAxis axis, CancellationToken token, int timeout_ms)
+        uint calibrateAxisSync(MotorAxis axis, CancellationToken token, int timeoutMs)
         {
             var request = EncodeStmpCalibration(axis);
-            var responce = SendAndWaitReply(request, token, timeout_ms);
-            (MotorAxis respAxis, uint steps) = DecodeStmpCalibration(responce);
+            var response = SendAndWaitReply(request, token, timeoutMs);
+            (MotorAxis respAxis, uint steps) = DecodeStmpCalibration(response);
             if (axis != respAxis)
                 throw new Exception("Responce Axis mismatch");
             return steps;
         }
 
-        private static void checkCalibrationResult(MotorAxis axis, uint steps, MachineCalibration calibration)
+        private static void CheckCalibrationResult(MotorAxis axis, uint steps, MachineCalibration calibration)
         {
             switch(axis)
             {
@@ -267,17 +260,17 @@ namespace LaserCleanChamber.Model
                 Send(requestCalibY);
                 Send(requestCalibZ);
 
-                Frame responce1 = WaitReply(MessageType.STMP_CALIBRATION, token);
-                Frame responce2 = WaitReply(MessageType.STMP_CALIBRATION, token);
-                Frame responce3 = WaitReply(MessageType.STMP_CALIBRATION, token);
+                Frame response1 = WaitReply(MessageType.STMP_CALIBRATION, token);
+                Frame response2 = WaitReply(MessageType.STMP_CALIBRATION, token);
+                Frame response3 = WaitReply(MessageType.STMP_CALIBRATION, token);
 
-                (MotorAxis axis1, uint steps1) = DecodeStmpCalibration(responce1);
-                (MotorAxis axis2, uint steps2) = DecodeStmpCalibration(responce2);
-                (MotorAxis axis3, uint steps3) = DecodeStmpCalibration(responce3);
+                (MotorAxis axis1, uint steps1) = DecodeStmpCalibration(response1);
+                (MotorAxis axis2, uint steps2) = DecodeStmpCalibration(response2);
+                (MotorAxis axis3, uint steps3) = DecodeStmpCalibration(response3);
 
-                checkCalibrationResult(axis1, steps1, machineCalibration);
-                checkCalibrationResult(axis2, steps2, machineCalibration);
-                checkCalibrationResult(axis3, steps3, machineCalibration);
+                CheckCalibrationResult(axis1, steps1, machineCalibration);
+                CheckCalibrationResult(axis2, steps2, machineCalibration);
+                CheckCalibrationResult(axis3, steps3, machineCalibration);
 
                 Thread.Sleep(300);
             }
@@ -466,39 +459,79 @@ namespace LaserCleanChamber.Model
         private const int ChunkPayloadMaxBytes = 70;
         private readonly bool isTrajectoryDiagnosticsJsonEnabled = SettingsManager.Load().Logging.EnabledTrajectoryDiagnosticsJson;
 
-        private static string CreateTrajectoryDiagnosticsPath()
+        private TrajectoryDiagnosticsRecord? CreateTrajectoryDiagnosticsRecord(TracePoint[] tracePoints, int pointsPerChunk)
         {
-            string diagnosticsDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "TrajectoryDiagnostics");
-            Directory.CreateDirectory(diagnosticsDirectory);
-            return System.IO.Path.Combine(diagnosticsDirectory, $"{DateTime.Now:yyyyMMdd-HHmmss-fff}-real-trajectory.json");
+            if (!isTrajectoryDiagnosticsJsonEnabled)
+                return null;
+
+            return TrajectoryDiagnosticsHelper.CreateRecord(nameof(ChamberDevice), false, MaxPointsCount, ChunkPayloadMaxBytes, pointsPerChunk, tracePoints);
         }
 
-        private static TrajectoryPointSummary BuildPointSummary(IReadOnlyList<TracePoint> points)
+        private static void LogTrajectoryPrepared(TracePoint[] tracePoints, int pointsPerChunk, int totalChunks)
         {
-            return new TrajectoryPointSummary
-            {
-                Count = points.Count,
-                MinX = points.Min(p => p.X),
-                MaxX = points.Max(p => p.X),
-                MinY = points.Min(p => p.Y),
-                MaxY = points.Max(p => p.Y),
-                MinZ = points.Min(p => p.Z),
-                MaxZ = points.Max(p => p.Z),
-                LaserOnPoints = points.Count(p => p.LaserOn),
-                FirstPoints = points.Take(5).Select(ToSnapshot).ToList(),
-                LastPoints = points.Skip(Math.Max(0, points.Count - 5)).Select(ToSnapshot).ToList()
-            };
+            AppLogging.App.Information(
+                AppLogging.Prefix("APP", "Action=TrajectoryPreparedForController, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
+                tracePoints.Length,
+                MaxPointsCount,
+                pointsPerChunk,
+                totalChunks,
+                ChunkPayloadMaxBytes,
+                DescribeTracePoints(tracePoints));
         }
 
-        private static TracePointSnapshot ToSnapshot(TracePoint point)
+        private static void LogTrajectoryChunkSend(int chunkIndex, int totalChunks, int startIndex, IReadOnlyList<TracePoint> tracePart, Frame request)
         {
-            return new TracePointSnapshot
+            AppLogging.Controller.Information(
+                AppLogging.Prefix("CTRL", "Action=TrajectoryChunkSend, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Points={Points}, PayloadLength={PayloadLength}, FrameLength={FrameLength}, ChunkSummary={ChunkSummary}"),
+                chunkIndex,
+                totalChunks,
+                startIndex,
+                tracePart.Count,
+                request.PayloadLength,
+                request.FrameLength,
+                DescribeTracePoints(tracePart));
+        }
+
+        private static void LogTrajectoryChunkAck(int chunkIndex, int totalChunks, int startIndex, SendTrajectoryResult result, Frame request)
+        {
+            AppLogging.Controller.Information(
+                AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAck, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
+                chunkIndex,
+                totalChunks,
+                startIndex,
+                result.success,
+                result.readedBytes,
+                request.PayloadLength);
+        }
+
+        private static void AppendTrajectoryChunkDiagnostics(TrajectoryDiagnosticsRecord? diagnosticsRecord, int chunkIndex, int startIndex, IReadOnlyList<TracePoint> tracePart, Frame request, SendTrajectoryResult result)
+        {
+            if (diagnosticsRecord == null)
+                return;
+
+            diagnosticsRecord.Chunks.Add(new TrajectoryChunkRecord
             {
-                X = point.X,
-                Y = point.Y,
-                Z = point.Z,
-                LaserOn = point.LaserOn
-            };
+                ChunkIndex = chunkIndex,
+                StartIndex = startIndex,
+                Points = tracePart.Count,
+                PayloadLength = request.PayloadLength,
+                FrameLength = request.FrameLength,
+                AckSuccess = result.success,
+                AckReadedBytes = result.readedBytes,
+                Summary = TrajectoryDiagnosticsHelper.BuildPointSummary(tracePart)
+            });
+
+            diagnosticsRecord.PayloadBytesTotal += request.PayloadLength;
+            diagnosticsRecord.SentBytesTotal += request.FrameLength;
+        }
+
+        private static void SaveTrajectoryDiagnostics(TrajectoryDiagnosticsRecord? diagnosticsRecord, string? diagnosticsPath)
+        {
+            if (diagnosticsRecord == null || diagnosticsPath == null)
+                return;
+
+            TrajectoryDiagnosticsHelper.Save(diagnosticsRecord, diagnosticsPath);
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=TrajectoryDiagnosticsSaved, Path={Path}"), diagnosticsPath);
         }
 
         private static string DescribeTracePoints(IReadOnlyList<TracePoint> trace)
@@ -521,97 +554,40 @@ namespace LaserCleanChamber.Model
 
         private void SendTrajectory(List<TracePoint> trace, CancellationToken token)
         {
-            int pointsInChank = ChunkPayloadMaxBytes / default(TracePoint).SizeInBytes;
+            int pointsInChunk = ChunkPayloadMaxBytes / default(TracePoint).SizeInBytes;
 
             if (trace.Count > MaxPointsCount)
                 throw new Exception("Слишком длинная траектория");
 
             TracePoint[] tracePoints = trace.ToArray();
-            int totalChunks = (tracePoints.Length + pointsInChank - 1) / pointsInChank;
-            string? diagnosticsPath = isTrajectoryDiagnosticsJsonEnabled ? CreateTrajectoryDiagnosticsPath() : null;
-            TrajectoryDiagnosticsRecord? diagnosticsRecord = isTrajectoryDiagnosticsJsonEnabled
-                ? new TrajectoryDiagnosticsRecord
-                {
-                    Timestamp = DateTimeOffset.Now,
-                    Source = "ChamberDevice",
-                    IsEmulated = false,
-                    MaxPoints = MaxPointsCount,
-                    PointsPerChunk = pointsInChank,
-                    ChunkPayloadMaxBytes = ChunkPayloadMaxBytes,
-                    PointSizeBytes = default(TracePoint).SizeInBytes,
-                    TotalPoints = tracePoints.Length,
-                    TotalChunks = totalChunks,
-                    PayloadBytesTotal = 0,
-                    SentBytesTotal = 0,
-                    Summary = BuildPointSummary(tracePoints),
-                    Chunks = new List<TrajectoryChunkRecord>()
-                }
-                : null;
+            int totalChunks = (tracePoints.Length + pointsInChunk - 1) / pointsInChunk;
+            string? diagnosticsPath = isTrajectoryDiagnosticsJsonEnabled ? TrajectoryDiagnosticsHelper.CreatePath("real") : null;
+            TrajectoryDiagnosticsRecord? diagnosticsRecord = CreateTrajectoryDiagnosticsRecord(tracePoints, pointsInChunk);
 
-            AppLogging.App.Information(
-                AppLogging.Prefix("APP", "Action=TrajectoryPreparedForController, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
-                tracePoints.Length,
-                MaxPointsCount,
-                pointsInChank,
-                totalChunks,
-                ChunkPayloadMaxBytes,
-                DescribeTracePoints(tracePoints));
+            LogTrajectoryPrepared(tracePoints, pointsInChunk, totalChunks);
 
             int index = 0;
             while (true)
             {
                 int remains = tracePoints.Length - index;
-                int toSend = Math.Min(remains, pointsInChank);
+                int toSend = Math.Min(remains, pointsInChunk);
                 List<TracePoint> tracePart = new List<TracePoint>();
                 tracePart.AddRange(new ReadOnlySpan<TracePoint>(tracePoints, index, toSend));
+                int chunkIndex = TrajectoryDiagnosticsHelper.GetChunkIndex(index, pointsInChunk);
 
                 int tryNumberMax = 3;
                 for (int tryNum = 0; tryNum < tryNumberMax;)
                 {
                     Frame request = EncodeSendTraectoryPart((ushort)index, tracePart);
 
-                    List<byte> binaryTrajectory = new List<byte>();
-                    binaryTrajectory.AddRange(request.Payload);
+                    LogTrajectoryChunkSend(chunkIndex, totalChunks, index, tracePart, request);
 
-                    AppLogging.Controller.Information(
-                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkSend, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Points={Points}, PayloadLength={PayloadLength}, FrameLength={FrameLength}, ChunkSummary={ChunkSummary}"),
-                        (index / pointsInChank) + 1,
-                        totalChunks,
-                        index,
-                        tracePart.Count,
-                        request.PayloadLength,
-                        request.FrameLength,
-                        DescribeTracePoints(tracePart));
+                    Frame response = SendAndWaitReply(request, token);
+                    var result = DecodeSendTrajectoryResult(response);
 
-                    Frame responce = SendAndWaitReply(request, token);
-                    var result = DecodeSendTrajectoryResult(responce);
+                    AppendTrajectoryChunkDiagnostics(diagnosticsRecord, chunkIndex, index, tracePart, request, result);
+                    LogTrajectoryChunkAck(chunkIndex, totalChunks, index, result, request);
 
-                    diagnosticsRecord?.Chunks.Add(new TrajectoryChunkRecord
-                    {
-                        ChunkIndex = (index / pointsInChank) + 1,
-                        StartIndex = index,
-                        Points = tracePart.Count,
-                        PayloadLength = request.PayloadLength,
-                        FrameLength = request.FrameLength,
-                        AckSuccess = result.success,
-                        AckReadedBytes = result.readedBytes,
-                        Summary = BuildPointSummary(tracePart)
-                    });
-
-                    if (diagnosticsRecord != null)
-                    {
-                        diagnosticsRecord.PayloadBytesTotal += request.PayloadLength;
-                        diagnosticsRecord.SentBytesTotal += request.FrameLength;
-                    }
-
-                    AppLogging.Controller.Information(
-                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAck, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
-                        (index / pointsInChank) + 1,
-                        totalChunks,
-                        index,
-                        result.success,
-                        result.readedBytes,
-                        request.PayloadLength);
                     if (result.success && result.readedBytes == request.PayloadLength)
                         break;
                     tryNum++;
@@ -626,15 +602,10 @@ namespace LaserCleanChamber.Model
                     break;
             }
 
-            if (diagnosticsRecord != null && diagnosticsPath != null)
-            {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                File.WriteAllText(diagnosticsPath, JsonSerializer.Serialize(diagnosticsRecord, options));
-                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=TrajectoryDiagnosticsSaved, Path={Path}"), diagnosticsPath);
-            }
+            SaveTrajectoryDiagnostics(diagnosticsRecord, diagnosticsPath);
         }
 
-        private Frame WaitReply(MessageType messageType, CancellationToken token, int timeout_ms = -1)
+        private Frame WaitReply(MessageType messageType, CancellationToken token, int timeoutMs = -1)
         {
             lock (serialLocker)
             {
@@ -647,18 +618,18 @@ namespace LaserCleanChamber.Model
                         var b = serialPort.ReadByte();
                         if (b >= 0)
                         {
-                            if (frameBuilder.ProcessByte((byte)b, out Frame? responce))
+                            if (frameBuilder.ProcessByte((byte)b, out Frame? response))
                             {
-                                if (responce != null)
+                                if (response != null)
                                 {
-                                    /*if (responce.MessageType != request.MessageType)
+                                    /*if (response.MessageType != request.MessageType)
                                         throw new Exception("Request and responce message type mismatch");
                                     */
-                                    AppLogging.Controller.Debug(AppLogging.Prefix("CTRL", "Direction=RX, {Description}; Hex={Hex}"), AppLogging.DescribeFrame(responce), AppLogging.ToHex(responce.ToByteArray()));
-                                    return responce;
+                                    AppLogging.Controller.Debug(AppLogging.Prefix("CTRL", "Direction=RX, {Description}; Hex={Hex}"), AppLogging.DescribeFrame(response), AppLogging.ToHex(response.ToByteArray()));
+                                    return response;
                                 }
                                 else
-                                    throw new NullReferenceException("No responce");
+                                    throw new NullReferenceException("No response");
                             }
                         }
                     }
@@ -667,9 +638,9 @@ namespace LaserCleanChamber.Model
 
                     if (token.IsCancellationRequested)
                         throw new OperationCanceledException();
-                    if (timeout_ms >= 0 && sw.Elapsed.TotalMilliseconds > timeout_ms)
+                    if (timeoutMs >= 0 && sw.Elapsed.TotalMilliseconds > timeoutMs)
                     {
-                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Timeout, ExpectedType={ExpectedType}, TimeoutMs={TimeoutMs}"), messageType, timeout_ms);
+                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Timeout, ExpectedType={ExpectedType}, TimeoutMs={TimeoutMs}"), messageType, timeoutMs);
                         throw new TimeoutException();
                     }
                 }
@@ -677,21 +648,21 @@ namespace LaserCleanChamber.Model
             throw new Exception("Unknown error");
         }
 
-        private Frame SendAndWaitReply(Frame request, CancellationToken token, int timeout_ms = -1, int timeoutMaxTrys = 3)
+        private Frame SendAndWaitReply(Frame request, CancellationToken token, int timeoutMs = -1, int timeoutMaxTries = 3)
         {
             lock (serialLocker)
             {
                 int tryNum = 1;
-                for (; tryNum <= timeoutMaxTrys; tryNum++)
+                for (; tryNum <= timeoutMaxTries; tryNum++)
                 {
                     try
                     {
                         Send(request);
-                        return WaitReply((MessageType)request.MessageType, token, timeout_ms);
+                        return WaitReply((MessageType)request.MessageType, token, timeoutMs);
                     }
                     catch (TimeoutException)
                     {
-                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Retry, Try={Try}, MaxTries={MaxTries}, Request={Description}"), tryNum, timeoutMaxTrys, AppLogging.DescribeFrame(request));
+                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Retry, Try={Try}, MaxTries={MaxTries}, Request={Description}"), tryNum, timeoutMaxTries, AppLogging.DescribeFrame(request));
                     }
                 }
                 throw new Exception("Timeout waiting reply");
