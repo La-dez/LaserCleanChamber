@@ -29,6 +29,7 @@
     "EnabledControllerLogger": true,
     "EnabledTelemetryLogger": true,
     "EnabledLaserLogger": true,
+    "EnabledTrajectoryDiagnosticsJson": true,
     "MinimumLevel": "Debug",
     "RetentionDaysAppLogs": 30,
     "RetentionDaysControllerLogs": 30,

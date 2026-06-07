@@ -5,6 +5,8 @@ VisualStudioVersion = 18.6.11806.211
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserCleanChamber", "LaserCleanChamber\LaserCleanChamber.csproj", "{FC230179-64AC-4A45-B7D3-26276E7455BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrajectoryComparer", "TrajectoryComparer\TrajectoryComparer.csproj", "{D735EC76-EA98-C062-73D5-09EF84DA59C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FC230179-64AC-4A45-B7D3-26276E7455BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC230179-64AC-4A45-B7D3-26276E7455BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC230179-64AC-4A45-B7D3-26276E7455BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D735EC76-EA98-C062-73D5-09EF84DA59C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D735EC76-EA98-C062-73D5-09EF84DA59C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D735EC76-EA98-C062-73D5-09EF84DA59C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D735EC76-EA98-C062-73D5-09EF84DA59C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

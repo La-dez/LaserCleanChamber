@@ -18,6 +18,8 @@ using System.Windows.Media;
 using static LaserCleanChamber.Model.Communication.Protocol;
 using LaserCleanChamber.Model.Path;
 using LaserCleanChamber.Logging;
+using LaserCleanChamber.Logging.TrajectoryDiagnostics;
+using System.Text.Json;
 using System.Windows;
 
 namespace LaserCleanChamber.Model
@@ -462,6 +464,42 @@ namespace LaserCleanChamber.Model
 
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
+        private readonly bool isTrajectoryDiagnosticsJsonEnabled = SettingsManager.Load().Logging.EnabledTrajectoryDiagnosticsJson;
+
+        private static string CreateTrajectoryDiagnosticsPath()
+        {
+            string diagnosticsDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "TrajectoryDiagnostics");
+            Directory.CreateDirectory(diagnosticsDirectory);
+            return System.IO.Path.Combine(diagnosticsDirectory, $"{DateTime.Now:yyyyMMdd-HHmmss-fff}-real-trajectory.json");
+        }
+
+        private static TrajectoryPointSummary BuildPointSummary(IReadOnlyList<TracePoint> points)
+        {
+            return new TrajectoryPointSummary
+            {
+                Count = points.Count,
+                MinX = points.Min(p => p.X),
+                MaxX = points.Max(p => p.X),
+                MinY = points.Min(p => p.Y),
+                MaxY = points.Max(p => p.Y),
+                MinZ = points.Min(p => p.Z),
+                MaxZ = points.Max(p => p.Z),
+                LaserOnPoints = points.Count(p => p.LaserOn),
+                FirstPoints = points.Take(5).Select(ToSnapshot).ToList(),
+                LastPoints = points.Skip(Math.Max(0, points.Count - 5)).Select(ToSnapshot).ToList()
+            };
+        }
+
+        private static TracePointSnapshot ToSnapshot(TracePoint point)
+        {
+            return new TracePointSnapshot
+            {
+                X = point.X,
+                Y = point.Y,
+                Z = point.Z,
+                LaserOn = point.LaserOn
+            };
+        }
 
         private static string DescribeTracePoints(IReadOnlyList<TracePoint> trace)
         {
@@ -490,6 +528,25 @@ namespace LaserCleanChamber.Model
 
             TracePoint[] tracePoints = trace.ToArray();
             int totalChunks = (tracePoints.Length + pointsInChank - 1) / pointsInChank;
+            string? diagnosticsPath = isTrajectoryDiagnosticsJsonEnabled ? CreateTrajectoryDiagnosticsPath() : null;
+            TrajectoryDiagnosticsRecord? diagnosticsRecord = isTrajectoryDiagnosticsJsonEnabled
+                ? new TrajectoryDiagnosticsRecord
+                {
+                    Timestamp = DateTimeOffset.Now,
+                    Source = "ChamberDevice",
+                    IsEmulated = false,
+                    MaxPoints = MaxPointsCount,
+                    PointsPerChunk = pointsInChank,
+                    ChunkPayloadMaxBytes = ChunkPayloadMaxBytes,
+                    PointSizeBytes = default(TracePoint).SizeInBytes,
+                    TotalPoints = tracePoints.Length,
+                    TotalChunks = totalChunks,
+                    PayloadBytesTotal = 0,
+                    SentBytesTotal = 0,
+                    Summary = BuildPointSummary(tracePoints),
+                    Chunks = new List<TrajectoryChunkRecord>()
+                }
+                : null;
 
             AppLogging.App.Information(
                 AppLogging.Prefix("APP", "Action=TrajectoryPreparedForController, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
@@ -499,14 +556,6 @@ namespace LaserCleanChamber.Model
                 totalChunks,
                 ChunkPayloadMaxBytes,
                 DescribeTracePoints(tracePoints));
-
-            using(StreamWriter sw = new StreamWriter(DateTime.Now.ToString("dd-MM-yyyy_mm-ss") + ".txt"))
-            {
-                for(int i = 0; i <  tracePoints.Length; i++)
-                {
-                    sw.WriteLine(tracePoints[i].ToString());
-                }
-            }
 
             int index = 0;
             while (true)
@@ -536,6 +585,25 @@ namespace LaserCleanChamber.Model
 
                     Frame responce = SendAndWaitReply(request, token);
                     var result = DecodeSendTrajectoryResult(responce);
+
+                    diagnosticsRecord?.Chunks.Add(new TrajectoryChunkRecord
+                    {
+                        ChunkIndex = (index / pointsInChank) + 1,
+                        StartIndex = index,
+                        Points = tracePart.Count,
+                        PayloadLength = request.PayloadLength,
+                        FrameLength = request.FrameLength,
+                        AckSuccess = result.success,
+                        AckReadedBytes = result.readedBytes,
+                        Summary = BuildPointSummary(tracePart)
+                    });
+
+                    if (diagnosticsRecord != null)
+                    {
+                        diagnosticsRecord.PayloadBytesTotal += request.PayloadLength;
+                        diagnosticsRecord.SentBytesTotal += request.FrameLength;
+                    }
+
                     AppLogging.Controller.Information(
                         AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAck, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
                         (index / pointsInChank) + 1,
@@ -556,6 +624,13 @@ namespace LaserCleanChamber.Model
 
                 if (index >= tracePoints.Length)
                     break;
+            }
+
+            if (diagnosticsRecord != null && diagnosticsPath != null)
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                File.WriteAllText(diagnosticsPath, JsonSerializer.Serialize(diagnosticsRecord, options));
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=TrajectoryDiagnosticsSaved, Path={Path}"), diagnosticsPath);
             }
         }
 

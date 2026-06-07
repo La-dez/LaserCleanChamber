@@ -76,4 +76,10 @@
     </None>
   </ItemGroup>
 
+  <Target Name="BuildTrajectoryComparer" AfterTargets="Build">
+    <MSBuild Projects="..\TrajectoryComparer\TrajectoryComparer.csproj"
+             Targets="Build"
+             Properties="Configuration=$(Configuration)" />
+  </Target>
+
 </Project>

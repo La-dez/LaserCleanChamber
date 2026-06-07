@@ -64,6 +64,7 @@ namespace LaserCleanChamber.Configuration
         public bool EnabledControllerLogger { get; set; } = true;
         public bool EnabledTelemetryLogger { get; set; } = true;
         public bool EnabledLaserLogger { get; set; } = true;
+        public bool EnabledTrajectoryDiagnosticsJson { get; set; } = true;
         public string MinimumLevel { get; set; } = "Information";
         public int RetentionDaysAppLogs { get; set; } = 30;
         public int RetentionDaysControllerLogs { get; set; } = 30;

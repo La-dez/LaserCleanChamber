@@ -1,11 +1,13 @@
 using LaserCleanChamber.Configuration;
 using LaserCleanChamber.Logging;
+using LaserCleanChamber.Logging.TrajectoryDiagnostics;
 using LaserCleanChamber.Model.Communication;
 using LaserCleanChamber.Model.Path;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using static LaserCleanChamber.Model.Communication.Protocol;
@@ -64,12 +66,13 @@ namespace LaserCleanChamber.Model
 
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
+        private readonly bool isTrajectoryDiagnosticsJsonEnabled;
 
         private static string CreateTrajectoryDiagnosticsPath()
         {
-            string diagnosticsDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "trajectory-diagnostics");
+            string diagnosticsDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "TrajectoryDiagnostics");
             Directory.CreateDirectory(diagnosticsDirectory);
-            return System.IO.Path.Combine(diagnosticsDirectory, $"{DateTime.Now:yyyyMMdd-HHmmss-fff}-emulated-trajectory.txt");
+            return System.IO.Path.Combine(diagnosticsDirectory, $"{DateTime.Now:yyyyMMdd-HHmmss-fff}-emulated-trajectory.json");
         }
 
         public MocChamberDevice2(CalibrationSettings calibrationSettings)
@@ -80,9 +83,38 @@ namespace LaserCleanChamber.Model
             machineCalibration.StepsPerMmZ = calibrationSettings.StepsPerMmZ;
             machineCalibration.StepsPerMmX = calibrationSettings.StepsPerMmX;
             machineCalibration.StepsPerMmY = calibrationSettings.StepsPerMmY;
+            isTrajectoryDiagnosticsJsonEnabled = SettingsManager.Load().Logging.EnabledTrajectoryDiagnosticsJson;
 
             StartCalibrating();
             Telemetry = ReadTelemetery();
+        }
+
+        private static TrajectoryPointSummary BuildPointSummary(IReadOnlyList<TracePoint> points)
+        {
+            return new TrajectoryPointSummary
+            {
+                Count = points.Count,
+                MinX = points.Min(p => p.X),
+                MaxX = points.Max(p => p.X),
+                MinY = points.Min(p => p.Y),
+                MaxY = points.Max(p => p.Y),
+                MinZ = points.Min(p => p.Z),
+                MaxZ = points.Max(p => p.Z),
+                LaserOnPoints = points.Count(p => p.LaserOn),
+                FirstPoints = points.Take(5).Select(ToSnapshot).ToList(),
+                LastPoints = points.Skip(Math.Max(0, points.Count - 5)).Select(ToSnapshot).ToList()
+            };
+        }
+
+        private static TracePointSnapshot ToSnapshot(TracePoint point)
+        {
+            return new TracePointSnapshot
+            {
+                X = point.X,
+                Y = point.Y,
+                Z = point.Z,
+                LaserOn = point.LaserOn
+            };
         }
 
         public void SetLaserParameters(LaserPreset preset)
@@ -365,17 +397,25 @@ namespace LaserCleanChamber.Model
 
             TracePoint[] tracePoints = trace.ToArray();
             int totalChunks = (tracePoints.Length + pointsInChank - 1) / pointsInChank;
-            string diagnosticsPath = CreateTrajectoryDiagnosticsPath();
-            List<string> diagnosticsLines = new List<string>
-            {
-                $"Timestamp={DateTime.Now:O}",
-                $"Points={tracePoints.Length}",
-                $"MaxPoints={MaxPointsCount}",
-                $"PointsPerChunk={pointsInChank}",
-                $"Chunks={totalChunks}",
-                $"ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}",
-                $"TraceSummary={DescribeTracePoints(tracePoints)}"
-            };
+            string? diagnosticsPath = isTrajectoryDiagnosticsJsonEnabled ? CreateTrajectoryDiagnosticsPath() : null;
+            TrajectoryDiagnosticsRecord? diagnosticsRecord = isTrajectoryDiagnosticsJsonEnabled
+                ? new TrajectoryDiagnosticsRecord
+                {
+                    Timestamp = DateTimeOffset.Now,
+                    Source = "MocChamberDevice2",
+                    IsEmulated = true,
+                    MaxPoints = MaxPointsCount,
+                    PointsPerChunk = pointsInChank,
+                    ChunkPayloadMaxBytes = ChunkPayloadMaxBytes,
+                    PointSizeBytes = default(TracePoint).SizeInBytes,
+                    TotalPoints = tracePoints.Length,
+                    TotalChunks = totalChunks,
+                    PayloadBytesTotal = 0,
+                    SentBytesTotal = 0,
+                    Summary = BuildPointSummary(tracePoints),
+                    Chunks = new List<TrajectoryChunkRecord>()
+                }
+                : null;
 
             AppLogging.App.Information(
                 AppLogging.Prefix("APP", "Action=TrajectoryPreparedForControllerEmulated, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
@@ -385,14 +425,6 @@ namespace LaserCleanChamber.Model
                 totalChunks,
                 ChunkPayloadMaxBytes,
                 DescribeTracePoints(tracePoints));
-
-            using (StreamWriter sw = new StreamWriter(DateTime.Now.ToString("dd-MM-yyyy_mm-ss") + ".txt"))
-            {
-                for (int i = 0; i < tracePoints.Length; i++)
-                {
-                    sw.WriteLine(tracePoints[i].ToString());
-                }
-            }
 
             int index = 0;
             while (true)
@@ -420,7 +452,23 @@ namespace LaserCleanChamber.Model
                     Frame response = SendAndWaitReply(request, token);
                     var result = DecodeSendTrajectoryResult(response);
 
-                    diagnosticsLines.Add($"ChunkIndex={(index / pointsInChank) + 1}/{totalChunks}; StartIndex={index}; Points={tracePart.Count}; PayloadLength={request.PayloadLength}; FrameLength={request.FrameLength}; AckSuccess={result.success}; AckReadedBytes={result.readedBytes}; ChunkSummary={DescribeTracePoints(tracePart)}");
+                    diagnosticsRecord?.Chunks.Add(new TrajectoryChunkRecord
+                    {
+                        ChunkIndex = (index / pointsInChank) + 1,
+                        StartIndex = index,
+                        Points = tracePart.Count,
+                        PayloadLength = request.PayloadLength,
+                        FrameLength = request.FrameLength,
+                        AckSuccess = result.success,
+                        AckReadedBytes = result.readedBytes,
+                        Summary = BuildPointSummary(tracePart)
+                    });
+
+                    if (diagnosticsRecord != null)
+                    {
+                        diagnosticsRecord.PayloadBytesTotal += request.PayloadLength;
+                        diagnosticsRecord.SentBytesTotal += request.FrameLength;
+                    }
 
                     AppLogging.Controller.Information(
                         AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAckEmulated, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
@@ -445,8 +493,12 @@ namespace LaserCleanChamber.Model
                     break;
             }
 
-            File.WriteAllLines(diagnosticsPath, diagnosticsLines);
-            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=TrajectoryDiagnosticsSavedEmulated, Path={Path}"), diagnosticsPath);
+            if (diagnosticsRecord != null && diagnosticsPath != null)
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                File.WriteAllText(diagnosticsPath, JsonSerializer.Serialize(diagnosticsRecord, options));
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=TrajectoryDiagnosticsSavedEmulated, Path={Path}"), diagnosticsPath);
+            }
         }
 
         private Frame SendAndWaitReply(Frame request, CancellationToken token, int timeout_ms = -1)
@@ -580,5 +632,6 @@ namespace LaserCleanChamber.Model
                 cts.Dispose();
             }
         }
+
     }
 }
