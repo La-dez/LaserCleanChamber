@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using static LaserCleanChamber.Model.Communication.Protocol;
 using LaserCleanChamber.Model.Path;
+using LaserCleanChamber.Logging;
+using System.Windows;
 
 namespace LaserCleanChamber.Model
 {
@@ -88,9 +90,11 @@ namespace LaserCleanChamber.Model
                 scannerPortPrameters.DataBits,
                 scannerPortPrameters.StopBits);
             serialPort.Open();
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=ControllerPortOpened, PortName={PortName}, Baudrate={Baudrate}"), scannerPortPrameters.PortName, scannerPortPrameters.Baudrate);
 
             laserPortManager = new LaserPortManager(laserPortName, laserSlaveId);
             laserPortManager.Open();
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=LaserPortOpened, PortName={PortName}"), laserPortName);
 
             //telemetry = new Telemetry(false, false, false, true, false, 25);
             telemetry = ReadTelemetery();
@@ -126,6 +130,7 @@ namespace LaserCleanChamber.Model
 
         public void SetLaserParameters(LaserPreset preset)
         {
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=ApplyLaserParameters, Preset={PresetName}, Power={Power}, ScanSpeed={ScanSpeed}, ScanWidth={ScanWidth}"), preset.Name, preset.Power, preset.ScanSpeed, preset.ScanWidth);
             //return;
             byte[] request = ModbusRtuHelper.BuildWriteSingleRequest(laserSlaveId, LaserRegisters.WeldingModeSelect,
                 (ushort)WeldingMode.Continuous);
@@ -153,6 +158,12 @@ namespace LaserCleanChamber.Model
         {
             if (State == ChamberDeviceState.Calibrating)
                 return;
+
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=ApplyCleaningParameters, Preset={PresetName}, CleaningRepeats={CleaningRepeats}, CooldownBetweenPassesSeconds={CooldownBetweenPassesSeconds}, CooldownAfterLinesSeconds={CooldownAfterLinesSeconds}"),
+                preset.Name,
+                preset.CleaningRepeats,
+                preset.CooldownBetweenPassesSeconds,
+                preset.CooldownAfterLinesSeconds);
 
             Frame cooldownAndRepeatsRequest = EncodeSetCooldownAndRepeatsCleaning(
                 preset.CleaningRepeats,
@@ -187,6 +198,7 @@ namespace LaserCleanChamber.Model
 
                 cts = new CancellationTokenSource();
                 State = ChamberDeviceState.Calibrating;
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=StartCalibration"));
                 task = Task.Run(() => CalibratingProcess(cts.Token), cts.Token);
             }
         }
@@ -197,6 +209,13 @@ namespace LaserCleanChamber.Model
             var responce = SendAndWaitReply(request, cts.Token, timeout_ms);
 
             Telemetry telemetry = Protocol.DecodeTelemetry(responce);
+            AppLogging.Telemetry.Information(AppLogging.Prefix("TEL", "Action=TelemetryRead, DoorClosed={DoorClosed}, PlatePlaced={PlatePlaced}, PistolPlaced={PistolPlaced}, IsCleaning={IsCleaning}, IsError={IsError}, TemperatureInside_degC={TemperatureInside_degC}"),
+                telemetry.DoorClosed,
+                telemetry.PlatePlaced,
+                telemetry.PistolPlaced,
+                telemetry.IsCleaning,
+                telemetry.IsError,
+                telemetry.TemperatureInside_degC);
             return telemetry;
         }
         public bool IsTelemetrySaysCleaning()
@@ -235,7 +254,7 @@ namespace LaserCleanChamber.Model
 
         private void CalibratingProcess(CancellationToken token)
         {
-            Exception? exception;
+            Exception? exception = null;
             try
             {
                 Frame requestCalibX = EncodeStmpCalibration(MotorAxis.X);
@@ -264,9 +283,15 @@ namespace LaserCleanChamber.Model
             catch (Exception ex)
             {
                 exception = ex;
+                AppLogging.App.Error(ex, AppLogging.Prefix("APP", "Action=CalibrationFailed"));
             }
             finally
             {
+                if (exception == null)
+                {
+                    AppLogging.App.Information(AppLogging.Prefix("APP", "Action=CalibrationCompleted, Success={Success}"), IsCalibrated);
+                }
+
                 this.OnCalibrationDone?.Invoke(IsCalibrated);
                 State = ChamberDeviceState.Idle;
             }
@@ -349,6 +374,7 @@ namespace LaserCleanChamber.Model
 
                 cts = new CancellationTokenSource();
                 State = ChamberDeviceState.Cleaning;
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=StartCleaning, Preset={PresetName}, Segments={Segments}"), preset.Name, trace.Count);
 
                 task = Task.Run(() => CleaningProcess(preset, trace, cts.Token), cts.Token);
             }
@@ -356,7 +382,7 @@ namespace LaserCleanChamber.Model
 
         private void CleaningProcess(LaserPreset preset, List<PathSegment<g3.Vector3d>> trace, CancellationToken token)
         {
-            Exception? exception;
+            Exception? exception = null;
             bool cleaningStarted = false;
             try
             {
@@ -396,28 +422,64 @@ namespace LaserCleanChamber.Model
             catch (Exception ex)
             {
                 exception = ex;
+                AppLogging.App.Error(ex, AppLogging.Prefix("APP", "Action=CleaningFailed"));
                 OnErrorMessage?.Invoke(ex.ToString());
             }
             finally
             {
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=CleaningCompleted, Started={Started}, CancelRequested={CancelRequested}, Error={HasError}"), cleaningStarted, token.IsCancellationRequested, exception != null);
                 State = ChamberDeviceState.Idle;
             }
         }
 
         public void StopCleaning()
         {
+            AppLogging.App.Information(AppLogging.Prefix("APP", "Action=StopCleaningRequested"));
             try
             {
                 Frame stopRequest = EncodeLaserCleanSwitch(false);
                 SendAndWaitReply(stopRequest, new CancellationToken(), 1000);
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=StopCleaningConfirmed"));
             }
-            catch { }
+            catch
+            {
+                try
+                {
+                    Frame stopRequest = EncodeLaserCleanSwitch(false);
+                    Send(stopRequest);
+                    AppLogging.App.Warning(AppLogging.Prefix("APP", "Action=StopCleaningSentWithoutConfirmation"));
+                }
+                catch
+                {
+                    AppLogging.App.Error(AppLogging.Prefix("APP", "Action=StopCleaningFailed"));
+                    MessageBox.Show("Не удалось отправить команду остановки. Если лазер включен, рекомендуется немедленно отключить питание.", 
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
 
 
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
+
+        private static string DescribeTracePoints(IReadOnlyList<TracePoint> trace)
+        {
+            if (trace == null || trace.Count == 0)
+                return "Count=0";
+
+            uint minX = trace.Min(p => p.X);
+            uint maxX = trace.Max(p => p.X);
+            uint minY = trace.Min(p => p.Y);
+            uint maxY = trace.Max(p => p.Y);
+            uint minZ = trace.Min(p => p.Z);
+            uint maxZ = trace.Max(p => p.Z);
+
+            string firstPoints = string.Join(" | ", trace.Take(5).Select(p => p.ToString()));
+            string lastPoints = string.Join(" | ", trace.Skip(Math.Max(0, trace.Count - 5)).Select(p => p.ToString()));
+
+            return $"Count={trace.Count}, RangeX={minX}-{maxX}, RangeY={minY}-{maxY}, RangeZ={minZ}-{maxZ}, First=[{firstPoints}], Last=[{lastPoints}]";
+        }
 
         private void SendTrajectory(List<TracePoint> trace, CancellationToken token)
         {
@@ -427,6 +489,17 @@ namespace LaserCleanChamber.Model
                 throw new Exception("Слишком длинная траектория");
 
             TracePoint[] tracePoints = trace.ToArray();
+            int totalChunks = (tracePoints.Length + pointsInChank - 1) / pointsInChank;
+
+            AppLogging.App.Information(
+                AppLogging.Prefix("APP", "Action=TrajectoryPreparedForController, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
+                tracePoints.Length,
+                MaxPointsCount,
+                pointsInChank,
+                totalChunks,
+                ChunkPayloadMaxBytes,
+                DescribeTracePoints(tracePoints));
+
             using(StreamWriter sw = new StreamWriter(DateTime.Now.ToString("dd-MM-yyyy_mm-ss") + ".txt"))
             {
                 for(int i = 0; i <  tracePoints.Length; i++)
@@ -451,8 +524,26 @@ namespace LaserCleanChamber.Model
                     List<byte> binaryTrajectory = new List<byte>();
                     binaryTrajectory.AddRange(request.Payload);
 
+                    AppLogging.Controller.Information(
+                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkSend, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Points={Points}, PayloadLength={PayloadLength}, FrameLength={FrameLength}, ChunkSummary={ChunkSummary}"),
+                        (index / pointsInChank) + 1,
+                        totalChunks,
+                        index,
+                        tracePart.Count,
+                        request.PayloadLength,
+                        request.FrameLength,
+                        DescribeTracePoints(tracePart));
+
                     Frame responce = SendAndWaitReply(request, token);
                     var result = DecodeSendTrajectoryResult(responce);
+                    AppLogging.Controller.Information(
+                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAck, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
+                        (index / pointsInChank) + 1,
+                        totalChunks,
+                        index,
+                        result.success,
+                        result.readedBytes,
+                        request.PayloadLength);
                     if (result.success && result.readedBytes == request.PayloadLength)
                         break;
                     tryNum++;
@@ -488,6 +579,7 @@ namespace LaserCleanChamber.Model
                                     /*if (responce.MessageType != request.MessageType)
                                         throw new Exception("Request and responce message type mismatch");
                                     */
+                                    AppLogging.Controller.Debug(AppLogging.Prefix("CTRL", "Direction=RX, {Description}; Hex={Hex}"), AppLogging.DescribeFrame(responce), AppLogging.ToHex(responce.ToByteArray()));
                                     return responce;
                                 }
                                 else
@@ -501,7 +593,10 @@ namespace LaserCleanChamber.Model
                     if (token.IsCancellationRequested)
                         throw new OperationCanceledException();
                     if (timeout_ms >= 0 && sw.Elapsed.TotalMilliseconds > timeout_ms)
+                    {
+                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Timeout, ExpectedType={ExpectedType}, TimeoutMs={TimeoutMs}"), messageType, timeout_ms);
                         throw new TimeoutException();
+                    }
                 }
             }
             throw new Exception("Unknown error");
@@ -519,7 +614,10 @@ namespace LaserCleanChamber.Model
                         Send(request);
                         return WaitReply((MessageType)request.MessageType, token, timeout_ms);
                     }
-                    catch (TimeoutException) { }
+                    catch (TimeoutException)
+                    {
+                        AppLogging.Controller.Warning(AppLogging.Prefix("CTRL", "Action=Retry, Try={Try}, MaxTries={MaxTries}, Request={Description}"), tryNum, timeoutMaxTrys, AppLogging.DescribeFrame(request));
+                    }
                 }
                 throw new Exception("Timeout waiting reply");
             }
@@ -534,6 +632,7 @@ namespace LaserCleanChamber.Model
 
                 var requestBuffer = request.ToByteArray();
                 serialPort.DiscardInBuffer();
+                AppLogging.Controller.Debug(AppLogging.Prefix("CTRL", "Direction=TX, {Description}; Hex={Hex}"), AppLogging.DescribeFrame(request), AppLogging.ToHex(requestBuffer));
                 serialPort.Write(requestBuffer, 0, requestBuffer.Length);
             }
         }
@@ -550,6 +649,7 @@ namespace LaserCleanChamber.Model
                 StopTask();
 
                 serialPort.Close();
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=ControllerPortClosed"));
                 serialPort.Dispose();
             }
             catch { }

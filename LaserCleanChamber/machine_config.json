@@ -22,5 +22,17 @@
     "TraceStep": 1,
     "ApproxError": 3,
     "Margin": 15
+  },
+  "Logging": {
+    "Enabled": true,
+    "EnabledAppLogger": true,
+    "EnabledControllerLogger": true,
+    "EnabledTelemetryLogger": true,
+    "EnabledLaserLogger": true,
+    "MinimumLevel": "Debug",
+    "RetentionDaysAppLogs": 30,
+    "RetentionDaysControllerLogs": 30,
+    "RetentionDaysTelemetryLogs": 30,
+    "RetentionDaysLaserLogs": 30
   }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
+using LaserCleanChamber.Logging;
 
 namespace LaserCleanChamber.Model.LaserComm
 {
@@ -53,6 +54,7 @@ namespace LaserCleanChamber.Model.LaserComm
                 _parser.Reset();
 
                 // 2. Отправляем запрос
+                AppLogging.Laser.Debug(AppLogging.Prefix("LASER", "{Description}; Hex={Hex}"), AppLogging.DescribeModbusFrame(requestFrame, "TX"), AppLogging.ToHex(requestFrame));
                 _serialPort.Write(requestFrame, 0, requestFrame.Length);
 
                 // 3. Ждем ответ
@@ -69,7 +71,9 @@ namespace LaserCleanChamber.Model.LaserComm
                         if (_parser.Process(b))
                         {
                             // Пакет успешно собран!
-                            return _parser.GetPacket();
+                            var response = _parser.GetPacket();
+                            AppLogging.Laser.Debug(AppLogging.Prefix("LASER", "{Description}; Hex={Hex}"), AppLogging.DescribeModbusFrame(response, "RX"), AppLogging.ToHex(response));
+                            return response;
                         }
                     }
                     else
@@ -79,6 +83,7 @@ namespace LaserCleanChamber.Model.LaserComm
                     }
                 }
 
+                AppLogging.Laser.Warning(AppLogging.Prefix("LASER", "Action=Timeout, {Description}; Hex={Hex}"), AppLogging.DescribeModbusFrame(requestFrame, "TX"), AppLogging.ToHex(requestFrame));
                 throw new TimeoutException("Таймаут ожидания ответа от лазера.");
             }
         }

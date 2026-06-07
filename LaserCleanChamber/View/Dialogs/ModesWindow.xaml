@@ -30,7 +30,7 @@
                       HeadersVisibility="Column"
                       GridLinesVisibility="Horizontal">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="0.7*"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="0.6*"/>
                     
                     <DataGridTemplateColumn Header="Мощность (Вт)" Width="0.75*">
                         <DataGridTemplateColumn.CellTemplate>
@@ -109,7 +109,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Пауза после повтора (с)" Width="1.1*">
+                    <DataGridTemplateColumn Header="Пауза между линиями (с)" Width="1.1*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CooldownAfterLinesSeconds}" Margin="4,0"/>

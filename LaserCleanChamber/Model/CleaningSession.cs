@@ -3,6 +3,7 @@ using LaserCleanChamber.Model.Path;
 using LaserCleanChamber.Model.Slicing;
 using LaserCleanChamber.Model.TracingAlgorithms;
 using LaserCleanChamber.Model.TracingAlgorithms.Implementations;
+using LaserCleanChamber.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,8 +20,53 @@ namespace LaserCleanChamber.Model
     
     public class CleaningSession
     {
-        public TracingAlgorithm TracingAlgorithm { get; set; } = TracingAlgorithm.Snake;
-        public PlateSides PlateSide { get; set; } = PlateSides.Top;
+        private static readonly TimeSpan FrequentLogDelay = TimeSpan.FromSeconds(1);
+
+        private TracingAlgorithm tracingAlgorithm = TracingAlgorithm.Snake;
+        private PlateSides plateSide = PlateSides.Top;
+        private LaserPreset? selectedPreset;
+
+        public TracingAlgorithm TracingAlgorithm
+        {
+            get => tracingAlgorithm;
+            set
+            {
+                if (tracingAlgorithm == value)
+                    return;
+
+                tracingAlgorithm = value;
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=ScanModeChanged, Mode={Mode}"), value);
+            }
+        }
+
+        public PlateSides PlateSide
+        {
+            get => plateSide;
+            set
+            {
+                if (plateSide == value)
+                    return;
+
+                plateSide = value;
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=PlateSideChanged, PlateSide={PlateSide}"), value);
+            }
+        }
+        public LaserPreset? SelectedPreset
+        {
+            get => selectedPreset;
+            set
+            {
+                selectedPreset = value;
+
+                if (value == null)
+                {
+                    AppLogging.App.Information(AppLogging.Prefix("APP", "Action=PresetCleared"));
+                    return;
+                }
+
+                AppLogging.App.Information(AppLogging.Prefix("APP", "Action=PresetSelected, {Preset}"), DescribePreset(value));
+            }
+        }
 
 
         private GeometryModel model3D;
@@ -43,7 +89,7 @@ namespace LaserCleanChamber.Model
         public double TraceStep { get; set; }
         public double ApproxError { get; set; }
         public double Margin { get; set; }
-        public LaserPreset? SelectedPreset { get; set; }
+
         public List<PathSegment<g3.Vector3d>>? Trajectory { get; private set; }
 
         public CleaningSession(AppSettings settings)
@@ -62,7 +108,9 @@ namespace LaserCleanChamber.Model
 
             var bounds = model3D.Mesh.GetBounds();
             //ROI = new Rect(bounds.Min.x, bounds.Min.y, bounds.Max.x - bounds.Min.x, bounds.Max.y - bounds.Min.y);
-            ROI = new Rect(-50, -60, 100, 120);
+            //ROI = new Rect(-50, -60, 100, 120);
+            ROI = new Rect(-100, -100, 200, 200);
+           // ROI = new Rect(-150, -150, 300, 300);
         }
 
         //public void CalculateTrajectory_old()
@@ -113,6 +161,14 @@ namespace LaserCleanChamber.Model
             var path = tracingAlgorithm.ProjectPathTo3D(model, path2d, Margin, 1, 0, bounds2d);
 
             Trajectory = path;
+            AppLogging.DebouncedInformation(nameof(CleaningSession) + ".CalculateTrajectory",
+                FrequentLogDelay,
+                AppLogging.App,
+                AppLogging.Prefix("APP", "Action=TrajectoryCalculated, Mode={Mode}, Preset={PresetName}, Segments={Segments}, Roi={Roi}"),
+                TracingAlgorithm,
+                SelectedPreset.Name,
+                path.Count,
+                $"X={ROI.X};Y={ROI.Y};W={ROI.Width};H={ROI.Height}");
         }
 
         public string AutoSelectCamera(string videoDeviceName)
@@ -137,6 +193,11 @@ namespace LaserCleanChamber.Model
                 return myDevice.Name;
             }
             return "";
+        }
+
+        private static string DescribePreset(LaserPreset preset)
+        {
+            return $"Name={preset.Name}, Power={preset.Power}, ScanWidth={preset.ScanWidth}, ScanSpeed={preset.ScanSpeed}, CleaningRepeats={preset.CleaningRepeats}, CooldownBetweenPassesSeconds={preset.CooldownBetweenPassesSeconds}, CooldownAfterLinesSeconds={preset.CooldownAfterLinesSeconds}";
         }
 
     }
