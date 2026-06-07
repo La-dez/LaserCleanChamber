@@ -65,7 +65,7 @@ namespace LaserCleanChamber.ViewModel
 
             CameraPlay();
 
-            this.chamberDevice = new MocChamberDevice();
+            this.chamberDevice = new MocChamberDevice2(settings.Calibration);
 
             cleaningSession.CalculateTrajectory();
 

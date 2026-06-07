@@ -463,6 +463,24 @@ namespace LaserCleanChamber.Model
         private const int MaxPointsCount = 1500;
         private const int ChunkPayloadMaxBytes = 70;
 
+        private static string DescribeTracePoints(IReadOnlyList<TracePoint> trace)
+        {
+            if (trace == null || trace.Count == 0)
+                return "Count=0";
+
+            uint minX = trace.Min(p => p.X);
+            uint maxX = trace.Max(p => p.X);
+            uint minY = trace.Min(p => p.Y);
+            uint maxY = trace.Max(p => p.Y);
+            uint minZ = trace.Min(p => p.Z);
+            uint maxZ = trace.Max(p => p.Z);
+
+            string firstPoints = string.Join(" | ", trace.Take(5).Select(p => p.ToString()));
+            string lastPoints = string.Join(" | ", trace.Skip(Math.Max(0, trace.Count - 5)).Select(p => p.ToString()));
+
+            return $"Count={trace.Count}, RangeX={minX}-{maxX}, RangeY={minY}-{maxY}, RangeZ={minZ}-{maxZ}, First=[{firstPoints}], Last=[{lastPoints}]";
+        }
+
         private void SendTrajectory(List<TracePoint> trace, CancellationToken token)
         {
             int pointsInChank = ChunkPayloadMaxBytes / default(TracePoint).SizeInBytes;
@@ -471,6 +489,17 @@ namespace LaserCleanChamber.Model
                 throw new Exception("Слишком длинная траектория");
 
             TracePoint[] tracePoints = trace.ToArray();
+            int totalChunks = (tracePoints.Length + pointsInChank - 1) / pointsInChank;
+
+            AppLogging.App.Information(
+                AppLogging.Prefix("APP", "Action=TrajectoryPreparedForController, Points={Points}, MaxPoints={MaxPoints}, PointsPerChunk={PointsPerChunk}, Chunks={Chunks}, ChunkPayloadMaxBytes={ChunkPayloadMaxBytes}, TraceSummary={TraceSummary}"),
+                tracePoints.Length,
+                MaxPointsCount,
+                pointsInChank,
+                totalChunks,
+                ChunkPayloadMaxBytes,
+                DescribeTracePoints(tracePoints));
+
             using(StreamWriter sw = new StreamWriter(DateTime.Now.ToString("dd-MM-yyyy_mm-ss") + ".txt"))
             {
                 for(int i = 0; i <  tracePoints.Length; i++)
@@ -495,8 +524,26 @@ namespace LaserCleanChamber.Model
                     List<byte> binaryTrajectory = new List<byte>();
                     binaryTrajectory.AddRange(request.Payload);
 
+                    AppLogging.Controller.Information(
+                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkSend, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Points={Points}, PayloadLength={PayloadLength}, FrameLength={FrameLength}, ChunkSummary={ChunkSummary}"),
+                        (index / pointsInChank) + 1,
+                        totalChunks,
+                        index,
+                        tracePart.Count,
+                        request.PayloadLength,
+                        request.FrameLength,
+                        DescribeTracePoints(tracePart));
+
                     Frame responce = SendAndWaitReply(request, token);
                     var result = DecodeSendTrajectoryResult(responce);
+                    AppLogging.Controller.Information(
+                        AppLogging.Prefix("CTRL", "Action=TrajectoryChunkAck, ChunkIndex={ChunkIndex}, TotalChunks={TotalChunks}, StartIndex={StartIndex}, Success={Success}, ReadedBytes={ReadedBytes}, ExpectedBytes={ExpectedBytes}"),
+                        (index / pointsInChank) + 1,
+                        totalChunks,
+                        index,
+                        result.success,
+                        result.readedBytes,
+                        request.PayloadLength);
                     if (result.success && result.readedBytes == request.PayloadLength)
                         break;
                     tryNum++;

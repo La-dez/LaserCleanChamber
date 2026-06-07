@@ -108,7 +108,9 @@ namespace LaserCleanChamber.Model
 
             var bounds = model3D.Mesh.GetBounds();
             //ROI = new Rect(bounds.Min.x, bounds.Min.y, bounds.Max.x - bounds.Min.x, bounds.Max.y - bounds.Min.y);
-            ROI = new Rect(-50, -60, 100, 120);
+            //ROI = new Rect(-50, -60, 100, 120);
+            ROI = new Rect(-100, -100, 200, 200);
+           // ROI = new Rect(-150, -150, 300, 300);
         }
 
         //public void CalculateTrajectory_old()

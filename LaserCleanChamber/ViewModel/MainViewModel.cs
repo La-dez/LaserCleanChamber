@@ -49,7 +49,7 @@ namespace LaserCleanChamber.ViewModel
             Disconnect();
             try
             {
-                IChamberDevice chamberDevice = new MocChamberDevice();
+                IChamberDevice chamberDevice = new MocChamberDevice2(currentSettings.Calibration);
                 this.ChamberViewModel = new ChamberViewModel(chamberDevice, currentSettings);
                 AppLogging.App.Information(AppLogging.Prefix("APP", "Action=EmulatorConnected"));
             }
@@ -68,7 +68,7 @@ namespace LaserCleanChamber.ViewModel
             {
                 if (currentSettings.Hardware.UseHardwareEmulator)
                 {
-                    IChamberDevice chamberDevice = new MocChamberDevice();
+                    IChamberDevice chamberDevice = new MocChamberDevice2(currentSettings.Calibration);
                     this.ChamberViewModel = new ChamberViewModel(chamberDevice, currentSettings);
                     AppLogging.App.Information(AppLogging.Prefix("APP", "Action=EmulatorConnected"));
                     return;
